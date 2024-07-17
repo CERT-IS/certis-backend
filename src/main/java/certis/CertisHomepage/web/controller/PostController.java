@@ -1,9 +1,7 @@
 package certis.CertisHomepage.web.controller;
 
-import certis.CertisHomepage.common.error.UserErrorCode;
 import certis.CertisHomepage.domain.UserEntity;
 import certis.CertisHomepage.domain.token.service.TokenService;
-import certis.CertisHomepage.exception.ApiException;
 import certis.CertisHomepage.repository.UserRepository;
 import certis.CertisHomepage.service.PostService;
 import certis.CertisHomepage.web.dto.post.PostDto;
@@ -60,9 +58,9 @@ public class PostController {
         Long pid = tokenService.validationToken(accesstoken);
         System.out.println("pid= "+ pid);
 
-        UserEntity user = userRepository.findById(pid);
+        Optional<UserEntity> user = userRepository.findById(pid);
 
-        return new Response("성공", " 게시물 작성",postService.write(postDto, user, files));
+        return new Response("성공", " 게시물 작성",postService.write(postDto, user.orElse(null), files));
     }
 
 
