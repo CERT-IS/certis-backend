@@ -7,15 +7,18 @@ import certis.CertisHomepage.repository.ImageRepository;
 import certis.CertisHomepage.repository.PostRepository;
 import certis.CertisHomepage.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class PostService {
@@ -48,23 +51,30 @@ public class PostService {
 
     //게시물 작성
     @Transactional
-    public PostDto write(PostDto postDto, UserEntity user, List<MultipartFile> files) throws IOException {
-
-        PostEntity post = new PostEntity();
-        post.setTitle(postDto.getTitle());
-        post.setContent(postDto.getContent());
-        post.setUser(user); //writer
-
-
-
+    public PostDto write(PostDto postDto, UserEntity userEntity, List<MultipartFile> files) throws IOException {
+        log.info("userEntity is: {}", userEntity);
         List<ImageEntity> imageList = fileHandler.parseFileInfo(files);
+
+        PostEntity post = PostEntity.builder()
+                .title(postDto.getTitle())
+                .content(postDto.getContent())
+                .view(0L)
+                .registeredAt(LocalDateTime.now())
+                .user(userEntity)
+                .build();
+
+        userEntity.addPost(post); // Bidirectional relationship 설정
+
         if(!imageList.isEmpty()){
             for (ImageEntity image : imageList){
                 post.addImage(imageRepository.save(image));
             }
         }
 
+
         postRepository.save(post);
+        log.info("PostEntity saved with user_id = {}", post.getUser().getId());
+
 
         return PostDto.toDto(post);
     }
@@ -78,6 +88,7 @@ public class PostService {
 
         post.setContent(postDto.getContent());
         post.setTitle(postDto.getTitle());
+        post.setModifiedAt(LocalDateTime.now());
         //이미지
         //post.setImg();
 

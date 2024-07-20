@@ -34,11 +34,8 @@ public class ImageEntity {
 
     private Long projectId;
 
-    //이 코드는 이해가안가긴함
+
     public void setPost(PostEntity post){
-        if (this.post != null){
-            this.post.getPostImages().remove(this);
-        }
         this.post = post;
 
         if(!post.getPostImages().contains(this)){

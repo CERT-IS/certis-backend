@@ -15,19 +15,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostDto {
 
-
-    private Long id;
-
-
+    @NotNull
     private String title;
 
-
+    @NotNull
     private String content;
 
-//    private LocalDateTime registeredAt;
-//
-//    @NotBlank
-//    private String writer;
+    private LocalDateTime registeredAt;
 
 
     //private List<MultipartFile> files;
@@ -35,6 +29,6 @@ public class PostDto {
 
 
     public static PostDto toDto(PostEntity post){
-        return new PostDto(post.getId(), post.getTitle(), post.getContent());
+        return new PostDto(post.getTitle(), post.getContent(), post.getRegisteredAt());
     }
 }

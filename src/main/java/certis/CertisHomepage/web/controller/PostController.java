@@ -1,7 +1,13 @@
 package certis.CertisHomepage.web.controller;
 
+import certis.CertisHomepage.common.error.UserErrorCode;
+import certis.CertisHomepage.domain.PostEntity;
 import certis.CertisHomepage.domain.UserEntity;
+import certis.CertisHomepage.domain.UserStatus;
+import certis.CertisHomepage.domain.token.TokenBusiness;
 import certis.CertisHomepage.domain.token.service.TokenService;
+import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.repository.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
 import certis.CertisHomepage.service.PostService;
 import certis.CertisHomepage.web.dto.post.PostDto;
@@ -9,6 +15,7 @@ import certis.CertisHomepage.web.dto.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,14 +23,15 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class PostController {
 
     private final PostService postService;
     private final UserRepository userRepository;
-    private final TokenService tokenService;
-
+    private final TokenBusiness tokenBusiness;
+    private final PostRepository postRepository;
 
     //전체 게시글 조회
     @GetMapping("/noti/all")
@@ -44,7 +52,7 @@ public class PostController {
 
     //게시글 작성
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/notify/write")
+    @PostMapping("/noti/write")
     public Response write(
             @Valid
             @RequestPart("postDto") PostDto postDto,     //@ResponseBody, @RequestBody의 차이
@@ -54,13 +62,31 @@ public class PostController {
         // 원래 로그인을 하면, User 정보는 세션을 통해서 구하고 주면 되지만,
         // 지금은 JWT 로그인은 생략하고, 임의로 findById 로 유저 정보를 넣어줌.
 
+
+
         //TODO
-        Long pid = tokenService.validationToken(accesstoken);
-        System.out.println("pid= "+ pid);
 
-        Optional<UserEntity> user = userRepository.findById(pid);
 
-        return new Response("성공", " 게시물 작성",postService.write(postDto, user.orElse(null), files));
+        //System.out.println("userId= "+ userId);
+        /*//user를 못찾아오고있음. 반면 pid는 잘 가져오는데.
+        Long pid = tokenBusiness.validationAccessToken(accesstoken);
+
+        UserEntity user = userRepository.findById(pid).orElseThrow(() -> {
+            return new ApiException(UserErrorCode.USER_NOT_FOUND);
+        });
+
+        return new Response("성공", " 게시물 작성",postService.write(postDto, user, files));*/
+
+        //그래서 결국 쿼리메소드로 만들어서 등록된것과 id를 같이 찾도록했다.그렇게 하니 게시물 작성은 완료.
+        UserEntity user = userRepository.findByIdAndStatus(tokenBusiness.validationAccessToken(accesstoken), UserStatus.REGISTERED);
+        if (user == null){
+            throw new ApiException(UserErrorCode.USER_NOT_FOUND);
+        }
+
+        return new Response("성공", " 게시물 작성",postService.write(postDto, user, files));
+
+
+
     }
 
 
@@ -79,7 +105,11 @@ public class PostController {
         // 맞으면 아래 로직 수행, 틀리면 다른 로직(ResponseFail 등 커스텀으로 만들어서) 수행
         // 이건 if문으로 처리할 수 있습니다. * 이 방법 말고 service 내부에서 확인해도 상관 없음
 
-        UserEntity user = userRepository.findById(id).get();
+        Optional<PostEntity> post = postRepository.findById(id);
+        if(post.isPresent())log.info("post exist");
+        else {
+            log.info("post not exist");
+        }
         return new Response("성공", "글 수정 성공", postService.update(id, postDto));
     }
 

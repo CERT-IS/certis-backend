@@ -21,4 +21,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     //닉네임으로 찾기?
     UserEntity findByUsername(String username);
 
+    UserEntity findByIdAndStatus(Long id, UserStatus status);
+
 }

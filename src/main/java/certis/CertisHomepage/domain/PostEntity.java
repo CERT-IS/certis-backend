@@ -34,11 +34,12 @@ public class PostEntity {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id") //생략 가능
+    @JoinColumn(name = "user_id", nullable = false) //생략 가능
     private UserEntity user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @OrderBy("id asc")
+    @Builder.Default
     private List<ImageEntity> postImages = new ArrayList<>();
 
 
@@ -66,5 +67,11 @@ public class PostEntity {
         this.registeredAt = registeredAt;
     }
 
+    public void setModifiedAt(LocalDateTime modifiedAt){
+        this.modifiedAt = modifiedAt;
+    }
 
+    public void setView(Long view) {
+        this.view = view;
+    }
 }

@@ -60,12 +60,18 @@ public class UserEntity {
    private UserStatus status;
 
    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PostEntity> post;
+    private List<PostEntity> posts = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private ProjectEntity project;
 
+
+    public void addPost(PostEntity post){
+        this.posts.add(post);
+        post.setUser(this);
+
+    }
 
 }
 
