@@ -1,11 +1,11 @@
 package certis.CertisHomepage.web.controller;
 
+import certis.CertisHomepage.common.api.PageApi;
 import certis.CertisHomepage.common.error.UserErrorCode;
 import certis.CertisHomepage.domain.PostEntity;
 import certis.CertisHomepage.domain.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
-import certis.CertisHomepage.domain.token.service.TokenService;
 import certis.CertisHomepage.exception.ApiException;
 import certis.CertisHomepage.repository.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
@@ -16,6 +16,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,8 +38,11 @@ public class PostController {
 
     //전체 게시글 조회
     @GetMapping("/noti/all")
-    public Response getPosts() {
-        return new Response("성공", "전체 게시물 리턴", postService.getPosts());
+    public PageApi<List<PostDto>> getPosts(
+        @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) //Default가 Direction.ASC
+        Pageable pageable
+    ) {
+        return postService.getPosts(pageable);
     }
 
     //개별 게시물 조회

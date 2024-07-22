@@ -38,7 +38,7 @@ public class PostEntity {
     private UserEntity user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @OrderBy("id asc")
+    @OrderBy("id desc")
     @Builder.Default
     private List<ImageEntity> postImages = new ArrayList<>();
 

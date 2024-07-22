@@ -2,6 +2,8 @@ package certis.CertisHomepage.interceptor;
 
 import certis.CertisHomepage.domain.RoleType;
 import certis.CertisHomepage.domain.UserEntity;
+import certis.CertisHomepage.domain.UserStatus;
+import certis.CertisHomepage.domain.token.TokenBusiness;
 import certis.CertisHomepage.domain.token.service.TokenService;
 import certis.CertisHomepage.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,16 +18,13 @@ import java.util.Optional;
 @Component
 public class NotiInterceptor implements HandlerInterceptor {
 
-    private final TokenService tokenService;
+    private final TokenBusiness tokenBusiness;
     private final UserRepository userRepository;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         var accessToken = request.getHeader("authorization-token"); //헤더에서꺼냄
-
-
-
 
         //로그인 안되었을때는 로그인 화면으로 보내주고
         if(accessToken == null){
@@ -37,10 +36,10 @@ public class NotiInterceptor implements HandlerInterceptor {
             //로그인 되어있을때 관리자인지 일반유저인지 확인해서 관리자는 글작성할수있게
             //TODO 일단 true리턴
             //accesstoken을 받아서 validationToken메소드로 검증하고 id받아옴
-            var loginid = tokenService.validationToken(accessToken);
-            Optional<UserEntity> user = userRepository.findById(loginid);
+            var loginid = tokenBusiness.validationAccessToken(accessToken);
+            UserEntity user = userRepository.findByIdAndStatus(loginid, UserStatus.REGISTERED);
 
-            if(RoleType.ADMIN.equals(user.get().getRoleType()) ){
+            if(RoleType.ADMIN.equals(user.getRoleType()) ){
                 //관리자면 접근 허용
                 return true;
             }else {

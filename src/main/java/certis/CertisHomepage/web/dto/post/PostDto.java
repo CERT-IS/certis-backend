@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostDto {
 
+
+    private Long id;
+
     @NotNull
     private String title;
 
@@ -29,6 +32,6 @@ public class PostDto {
 
 
     public static PostDto toDto(PostEntity post){
-        return new PostDto(post.getTitle(), post.getContent(), post.getRegisteredAt());
+        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getRegisteredAt());
     }
 }
