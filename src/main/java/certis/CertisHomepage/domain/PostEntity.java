@@ -12,7 +12,6 @@ import java.util.Optional;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 @Table(name = "post")
 public class PostEntity {
@@ -33,7 +32,7 @@ public class PostEntity {
     private LocalDateTime modifiedAt;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false) //생략 가능
     private UserEntity user;
 
@@ -49,6 +48,11 @@ public class PostEntity {
         if (image.getPost() != this){
             image.setPost(this);
         }
+    }
+
+
+    public Long getUserId(UserEntity user){
+        return user.getId();
     }
 
     public void setTitle(String title) {
@@ -73,5 +77,9 @@ public class PostEntity {
 
     public void setView(Long view) {
         this.view = view;
+    }
+
+    public void increaseViewCnt(){
+        this.view++;
     }
 }

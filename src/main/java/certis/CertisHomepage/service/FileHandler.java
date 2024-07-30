@@ -55,8 +55,10 @@ public class FileHandler {
                         originalFileExtension = ".jpg";
                     }else if(contentType.contains("image/png")){
                         originalFileExtension = ".png";
+                    }else if(contentType.contains("image/gif")){
+                        originalFileExtension = ".gif";
                     }else {
-                        log.error("jpg,png파일 외 다른 파일 형식이 들어옴");
+                        log.error("jpg, png, gif파일 외 다른 파일 형식이 들어옴");
                         break;
                     }
                 }

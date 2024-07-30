@@ -1,5 +1,6 @@
 package certis.CertisHomepage.web.dto;
 
+import certis.CertisHomepage.common.error.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,4 +18,5 @@ public class Response<T> {
     private String success;
     private String message;
     private T data;
+
 }

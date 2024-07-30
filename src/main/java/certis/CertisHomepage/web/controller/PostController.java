@@ -23,7 +23,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -68,8 +70,6 @@ public class PostController {
         // 원래 로그인을 하면, User 정보는 세션을 통해서 구하고 주면 되지만,
         // 지금은 JWT 로그인은 생략하고, 임의로 findById 로 유저 정보를 넣어줌.
 
-
-
         //TODO
 
 
@@ -98,38 +98,49 @@ public class PostController {
 
     //게시글 수정
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/noti/update/{id}")
+    @PutMapping(value = "/noti/update/{id}", consumes = "multipart/form-data")
     public Response edit(
-            @RequestBody PostDto postDto,
-            @PathVariable Long id
-    ){
+            @PathVariable("id") Long id,
+            @RequestPart("files") List<MultipartFile> files,
+            @RequestPart("postDto") PostDto postDto,
+            @RequestHeader("authorization-token") String accesstoken
+    ) throws IOException {
 
-        // 추후에 JWT 로그인을 배우고나서 적용해야할 것
-
-        // 1. 현재 요청을 보낸 유저의 JWT 토큰 정보(프론트엔드가 헤더를 통해 보내줌)를 바탕으로
-        // 현재 로그인한 유저의 정보가 PathVariable로 들어오는 BoardID 의 작성자인 user정보와 일치하는지 확인하고
-        // 맞으면 아래 로직 수행, 틀리면 다른 로직(ResponseFail 등 커스텀으로 만들어서) 수행
-        // 이건 if문으로 처리할 수 있습니다. * 이 방법 말고 service 내부에서 확인해도 상관 없음
 
         Optional<PostEntity> post = postRepository.findById(id);
         if(post.isPresent())log.info("post exist");
         else {
             log.info("post not exist");
         }
-        return new Response("성공", "글 수정 성공", postService.update(id, postDto));
+
+        //쓴사람이 아니라면 수정도 불가
+        if(Objects.equals(post.get().getUser().getId(), tokenBusiness.validationAccessToken(accesstoken))) {
+            return new Response("성공", "글 수정 성공", postService.update(id, postDto, files));
+        }else{
+            return new Response("실패", "글 수정 실패", new ApiException(UserErrorCode.USER_NOT_CORRET));
+        }
+
+
     }
 
     //게시글 삭제
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/noti/delete/{id}")
     public Response delete(
-            @PathVariable Long id
+            @PathVariable Long id,
+            @RequestHeader("authorization-token") String accesstoken
     ){
         // 이것도 마찬가지로, JWT(로그인 관련) 공부를 하고나서 현재 이 요청을 보낸 로그인된 유저의 정보가
         // 게시글의 주인인지 확인하고, 맞으면 삭제 수행 후 리턴해주고, 틀리면 에러 리턴
+        Optional<PostEntity> post = postRepository.findById(id);
+        if(post.get().getUser().getId() == tokenBusiness.validationAccessToken(accesstoken)) {
+            postService.delete(id);
+            return new Response<>("성공", "글 삭제 성공", null);
+        }else{
+            return new Response("실패", "글 삭제 실패", new ApiException(UserErrorCode.USER_NOT_CORRET));
+        }
 
-        postService.delete(id);
-        return new Response<>("성공", "글 삭제 성공", null);
+
     }
 
 }

@@ -2,10 +2,7 @@ package certis.CertisHomepage.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -60,7 +57,8 @@ public class UserEntity {
    private UserStatus status;
 
    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PostEntity> posts = new ArrayList<>();
+   @Builder.Default
+   private List<PostEntity> posts = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
@@ -70,7 +68,6 @@ public class UserEntity {
     public void addPost(PostEntity post){
         this.posts.add(post);
         post.setUser(this);
-
     }
 
 }

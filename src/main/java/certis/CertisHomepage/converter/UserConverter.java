@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserConverter {
 
 
-    public UserResponse toRepsonse(UserEntity entity) {
+    public UserResponse toResponse(UserEntity entity) {
         return UserResponse.builder()
                 .account(entity.getAccount())
                 .status(entity.getStatus())
