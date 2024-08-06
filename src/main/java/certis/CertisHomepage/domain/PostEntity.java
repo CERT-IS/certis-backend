@@ -20,6 +20,11 @@ public class PostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @Column(columnDefinition = "ENUM('PROJECT', 'NOTI')")
+    @Enumerated(EnumType.STRING)
+    private BoardType boardType; //게시판 유형
+
     private String title;
 
     @Column(columnDefinition = "TEXT")

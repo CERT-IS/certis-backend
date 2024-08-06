@@ -2,10 +2,7 @@ package certis.CertisHomepage.service;
 
 import certis.CertisHomepage.common.Pagination;
 import certis.CertisHomepage.common.api.PageApi;
-import certis.CertisHomepage.domain.ImageEntity;
-import certis.CertisHomepage.domain.PostEntity;
-import certis.CertisHomepage.domain.UserEntity;
-import certis.CertisHomepage.domain.UserStatus;
+import certis.CertisHomepage.domain.*;
 import certis.CertisHomepage.repository.ImageRepository;
 import certis.CertisHomepage.repository.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
@@ -40,9 +37,10 @@ public class PostService {
 
     //전체 게시물 조회
     //@Transactional(readOnly = true)
-    public PageApi<List<PostDto>> getPosts(Pageable pageable){
+    public PageApi<List<PostDto>> getPosts(Pageable pageable, BoardType boardType){
 
-        var list = postRepository.findAll(pageable); //이렇게만 해줘도 postEntity를 findAll해서 찾아오고 페이징과 정렬을 한 상태인것임!
+        //다들고 와버리면 데이터가 많을수록 올래걸릴거임.
+        var list = postRepository.findByBoardType(boardType, pageable); //이렇게만 해줘도 postEntity를 findAll해서 찾아오고 페이징과 정렬을 한 상태인것임!
 
         //stream으로 list에서 뽑아온 entity받아서 map으로 postDto::toDto메소드사용해서 List로
         List<PostDto> postDtos = list.stream()
@@ -105,9 +103,6 @@ public class PostService {
 
 
         return response;
-
-        /*PostDto postDto = PostDto.toDto(post);
-        return postDto;*/
     }
 
     //URL에서는 슬래시(/)를 사용해야 하므로, 역슬래시를 슬래시로 교체.
@@ -126,6 +121,7 @@ public class PostService {
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
                 .view(0L)
+                .boardType(postDto.getBoardType())
                 .registeredAt(LocalDateTime.now())
                 .user(userEntity)
                 .build();
@@ -174,7 +170,7 @@ public class PostService {
             //원래 이미지이름이 빈것이아니라면 저장하기.
             if(!newImage.getOriginalImgName().isBlank()){
                 post.addImage(imageRepository.save(newImage));
-                log.info("post 추가");
+                log.info("post 수정");
             }
         }
         //수정된 게시글을 저장.

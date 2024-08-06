@@ -4,6 +4,7 @@ import certis.CertisHomepage.interceptor.AuthorizationInterceptor;
 import certis.CertisHomepage.interceptor.NotiInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -33,6 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
     );
 
 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/photo/**")
@@ -45,7 +47,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
 
-        registry.addInterceptor(authorizationInterceptor)
+        /*registry.addInterceptor(authorizationInterceptor)
                 .excludePathPatterns(DEFAULT_EXCLUDE)
                 .excludePathPatterns(SWAGGER);
 
@@ -54,7 +56,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/noti/*")
                 .excludePathPatterns("/noti/{id}")
                 .excludePathPatterns("/noti/all");
-
+*/
 
     }
 }

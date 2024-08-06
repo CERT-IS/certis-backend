@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -53,7 +54,11 @@ public class UserController {
     )
     {
 
+
         var response = userService.login(userLoginRequest);
+
+        //ResponseCookie accessTokenCookie = Cookie response.getAccessToken();
+
         return Api.OK(response);
 
     }

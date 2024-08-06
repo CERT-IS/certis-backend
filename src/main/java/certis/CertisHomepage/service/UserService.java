@@ -14,6 +14,7 @@ import certis.CertisHomepage.web.dto.user.UserRegisterRequest;
 import certis.CertisHomepage.web.dto.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -77,8 +78,12 @@ public class UserService {
 
         //TODO 토큰 생성 로직으로 변경.
 
+
         var tokenResponse = tokenBusiness.issueToken(entity);
 
+        String refreshToken = tokenResponse.getRefreshToken();
+
+        //ResponseCookie refreshTokenCookie =  ResponseCookie.from("refresh-token",refreshToken.).build();
 
         return tokenResponse;
 

@@ -1,7 +1,10 @@
 package certis.CertisHomepage.web.controller;
 
 import certis.CertisHomepage.common.api.PageApi;
+import certis.CertisHomepage.common.error.ErrorCode;
+import certis.CertisHomepage.common.error.PostErrorCode;
 import certis.CertisHomepage.common.error.UserErrorCode;
+import certis.CertisHomepage.domain.BoardType;
 import certis.CertisHomepage.domain.PostEntity;
 import certis.CertisHomepage.domain.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
@@ -38,31 +41,42 @@ public class PostController {
     private final TokenBusiness tokenBusiness;
     private final PostRepository postRepository;
 
-    //전체 게시글 조회
-    @GetMapping("/noti/all")
+    //게시판별 게시글 전체 조회
+    @GetMapping("/{boardType}/all")
     public PageApi<List<PostDto>> getPosts(
+        @PathVariable("boardType") String boardType,
         @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) //Default가 Direction.ASC
         Pageable pageable
     ) {
-        return postService.getPosts(pageable);
+        return postService.getPosts(pageable, BoardType.valueOf(boardType.toUpperCase()));
     }
 
     //개별 게시물 조회
     @Operation(description = "개별 게시글 보기")
-    @GetMapping("/noti/{id}")
+    @GetMapping("/{boardType}/{id:\\d+}")   //이렇게 해버리면 swagger접근도 에러가 날수있음 모든 접근을 다잡기때문에
     public Response getPost(
+            @PathVariable("boardType") String boardType,
             @PathVariable("id") Long id
     )
     {
+        Optional<PostEntity> post = postRepository.findById(id);
+
+        if(post.isEmpty() || !post.get().getBoardType().equals(BoardType.valueOf(boardType.toUpperCase()))){
+            return new Response("실패", "개별 게시물 찾기 실패", new ApiException(PostErrorCode.POST_NOT_FOUND));
+        }
+
         return new Response("성공", "개별 게시물 리턴", postService.getPost(id));
+
+
     }
 
 
     //게시글 작성
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/noti/write")
+    @PostMapping("/{boardType}/write")
     public Response write(
             @Valid
+            @PathVariable("boardType") String boardType,
             @RequestPart("postDto") PostDto postDto,     //@ResponseBody, @RequestBody의 차이
             @RequestPart("files") List<MultipartFile> files, //// @RequestPart: MultipartFile을 받음
             @RequestHeader("authorization-token") String accesstoken//@RequestHeader를 통해 헤더에 있는 토큰 값을 받아옴
@@ -89,6 +103,14 @@ public class PostController {
             throw new ApiException(UserErrorCode.USER_NOT_FOUND);
         }
 
+        //NOTI도 아니고 PROJECT도 아니면 오류 발생
+        try {
+            BoardType type = BoardType.valueOf(boardType.toUpperCase());
+            postDto.setBoardType(type);
+        }catch (IllegalArgumentException e){
+            throw new ApiException(PostErrorCode.POST_NOT_EXIST);
+        }
+        postDto.setBoardType(BoardType.valueOf(boardType));
         return new Response("성공", " 게시물 작성",postService.write(postDto, user, files));
 
 
@@ -98,8 +120,9 @@ public class PostController {
 
     //게시글 수정
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "/noti/update/{id}", consumes = "multipart/form-data")
+    @PutMapping(value = "/{boardType}/update/{id}", consumes = "multipart/form-data")
     public Response edit(
+            @PathVariable("boardType") String boardType,
             @PathVariable("id") Long id,
             @RequestPart("files") List<MultipartFile> files,
             @RequestPart("postDto") PostDto postDto,
@@ -108,10 +131,10 @@ public class PostController {
 
 
         Optional<PostEntity> post = postRepository.findById(id);
-        if(post.isPresent())log.info("post exist");
-        else {
-            log.info("post not exist");
+        if (post.isEmpty() || post.get().getBoardType() != BoardType.valueOf(boardType.toUpperCase())) {
+            throw new ApiException(PostErrorCode.POST_NOT_EXIST);
         }
+
 
         //쓴사람이 아니라면 수정도 불가
         if(Objects.equals(post.get().getUser().getId(), tokenBusiness.validationAccessToken(accesstoken))) {
@@ -125,14 +148,19 @@ public class PostController {
 
     //게시글 삭제
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/noti/delete/{id}")
+    @DeleteMapping("/{boardType}/delete/{id}")
     public Response delete(
+            @PathVariable("boardType") String boardType,
             @PathVariable Long id,
             @RequestHeader("authorization-token") String accesstoken
     ){
         // 이것도 마찬가지로, JWT(로그인 관련) 공부를 하고나서 현재 이 요청을 보낸 로그인된 유저의 정보가
         // 게시글의 주인인지 확인하고, 맞으면 삭제 수행 후 리턴해주고, 틀리면 에러 리턴
         Optional<PostEntity> post = postRepository.findById(id);
+        if (post.isEmpty() || post.get().getBoardType() != BoardType.valueOf(boardType.toUpperCase())) {
+            throw new ApiException(PostErrorCode.POST_NOT_EXIST);
+        }
+
         if(post.get().getUser().getId() == tokenBusiness.validationAccessToken(accesstoken)) {
             postService.delete(id);
             return new Response<>("성공", "글 삭제 성공", null);

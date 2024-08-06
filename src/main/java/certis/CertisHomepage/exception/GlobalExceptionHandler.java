@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     public Response<?> illegalArgumentExceptionAdvice(IllegalArgumentException e){
         log.error("",e.getMessage());
 
-        return new Response("fail", e.getMessage().toString(), null);
+        return new Response("fail", e.getMessage(), null);
     }
 
 }

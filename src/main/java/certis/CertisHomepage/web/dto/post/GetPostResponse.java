@@ -1,5 +1,6 @@
 package certis.CertisHomepage.web.dto.post;
 
+import certis.CertisHomepage.domain.BoardType;
 import certis.CertisHomepage.domain.PostEntity;
 import certis.CertisHomepage.domain.UserEntity;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +24,8 @@ public class GetPostResponse {
 
     private String title;
 
+    private BoardType boardType;
+
     private String content;
 
     private String writer;
@@ -41,6 +44,7 @@ public class GetPostResponse {
                 .content(post.getContent())
                 .PostImageUrlList(imageUrls)
                 .title(post.getTitle())
+                .boardType(post.getBoardType())
                 .writer(post.getUser().getUsername())
                 .registeredAt(post.getRegisteredAt())
                 .build()

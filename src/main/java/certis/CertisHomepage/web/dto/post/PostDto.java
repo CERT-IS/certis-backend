@@ -1,6 +1,7 @@
 package certis.CertisHomepage.web.dto.post;
 
 
+import certis.CertisHomepage.domain.BoardType;
 import certis.CertisHomepage.domain.ImageEntity;
 import certis.CertisHomepage.domain.PostEntity;
 import certis.CertisHomepage.domain.UserEntity;
@@ -32,17 +33,19 @@ public class PostDto {
 
     private LocalDateTime registeredAt;
 
+    private BoardType boardType;
+
+    private Long userId;
 
     private Long view;
 
     private LocalDateTime modifiedAt;
-
 
     //private List<MultipartFile> files;
 
 
 
     public static PostDto toDto(PostEntity post){
-        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getRegisteredAt(),post.getView(),post.getModifiedAt());
+        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getRegisteredAt(), post.getBoardType(),post.getUser().getId(),post.getView(),post.getModifiedAt());
     }
 }

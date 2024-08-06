@@ -29,7 +29,7 @@ public class TokenService {
     public TokenDto issueRefreshToken(Long userId){
         var data = new HashMap<String, Object>();
         data.put("userId", userId);
-        return tokenHelperIfs.issueAccessToken(data);
+        return tokenHelperIfs.issueRefreshToken(data);
     }
 
     public Long validationToken(String token){
