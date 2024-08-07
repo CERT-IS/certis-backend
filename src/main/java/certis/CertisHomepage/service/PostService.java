@@ -39,7 +39,7 @@ public class PostService {
     //@Transactional(readOnly = true)
     public PageApi<List<PostDto>> getPosts(Pageable pageable, BoardType boardType){
 
-        //다들고 와버리면 데이터가 많을수록 올래걸릴거임.
+        //다들고 와버리면 데이터가 많을수록 올래걸릴거임. -> querydsl
         var list = postRepository.findByBoardType(boardType, pageable); //이렇게만 해줘도 postEntity를 findAll해서 찾아오고 페이징과 정렬을 한 상태인것임!
 
         //stream으로 list에서 뽑아온 entity받아서 map으로 postDto::toDto메소드사용해서 List로

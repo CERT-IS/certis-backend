@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -81,9 +82,6 @@ public class UserService {
 
         var tokenResponse = tokenBusiness.issueToken(entity);
 
-        String refreshToken = tokenResponse.getRefreshToken();
-
-        //ResponseCookie refreshTokenCookie =  ResponseCookie.from("refresh-token",refreshToken.).build();
 
         return tokenResponse;
 

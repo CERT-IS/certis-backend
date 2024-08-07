@@ -1,17 +1,19 @@
 package certis.CertisHomepage.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Table(name = "refreshtoken")
 public class RefreshTokenEntity {
 
     @Id
@@ -19,8 +21,12 @@ public class RefreshTokenEntity {
     private Long id;
 
 
-    private Long userId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     private String token;
+
+    private LocalDateTime expiredAt;
 
 }
