@@ -1,3 +1,4 @@
+/*
 package certis.CertisHomepage.repository;
 
 import certis.CertisHomepage.domain.ProjectEntity;
@@ -8,3 +9,4 @@ public interface ProjectRepository extends JpaRepository<ProjectEntity, Long> {
     ProjectEntity findByProjectName(String projectName);
 
 }
+*/

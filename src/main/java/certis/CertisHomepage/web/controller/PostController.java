@@ -1,7 +1,6 @@
 package certis.CertisHomepage.web.controller;
 
 import certis.CertisHomepage.common.api.PageApi;
-import certis.CertisHomepage.common.error.ErrorCode;
 import certis.CertisHomepage.common.error.PostErrorCode;
 import certis.CertisHomepage.common.error.UserErrorCode;
 import certis.CertisHomepage.domain.BoardType;
@@ -10,8 +9,9 @@ import certis.CertisHomepage.domain.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
 import certis.CertisHomepage.exception.ApiException;
-import certis.CertisHomepage.repository.PostRepository;
+import certis.CertisHomepage.repository.post.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
+import certis.CertisHomepage.repository.post.SearchCr;
 import certis.CertisHomepage.service.PostService;
 import certis.CertisHomepage.web.dto.post.PostDto;
 import certis.CertisHomepage.web.dto.Response;
@@ -20,7 +20,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +44,7 @@ public class PostController {
     @GetMapping("/{boardType}/all")
     public PageApi<List<PostDto>> getPosts(
         @PathVariable("boardType") String boardType,
-        @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) //Default가 Direction.ASC
+        @PageableDefault(page = 0, size = 10) //Default가 Direction.ASC
         Pageable pageable
     ) {
         return postService.getPosts(pageable, BoardType.valueOf(boardType.toUpperCase()));
@@ -70,6 +69,15 @@ public class PostController {
 
     }
 
+    @GetMapping("/{boardType}")
+    public PageApi<List<PostDto>> searchPosts(
+            @PathVariable BoardType boardType,
+            @RequestParam(value = "word", required = false)String word,
+            @RequestParam(value = "crieria", required = false, defaultValue = "TITLE")SearchCr criteria,
+            @PageableDefault(page = 0, size = 10)Pageable pageable
+    ){
+        return postService.searchPosts(pageable,boardType,criteria,word);
+    }
 
     //게시글 작성
     @ResponseStatus(HttpStatus.CREATED)
@@ -167,8 +175,8 @@ public class PostController {
         }else{
             return new Response("실패", "글 삭제 실패", new ApiException(UserErrorCode.USER_NOT_CORRET));
         }
-
-
     }
+
+
 
 }

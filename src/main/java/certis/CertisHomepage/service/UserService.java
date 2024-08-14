@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -74,6 +75,7 @@ public class UserService {
     *   3.token 생성
     *   4.token response
     * */
+    @Transactional
     public TokenResponse login(UserLoginRequest request){
         var entity = getUserWithThrow(request.getAccount(), request.getPassword());
 

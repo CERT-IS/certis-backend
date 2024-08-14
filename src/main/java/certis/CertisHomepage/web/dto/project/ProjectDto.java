@@ -1,7 +1,8 @@
+/*
 package certis.CertisHomepage.web.dto.project;
 
 
-import certis.CertisHomepage.domain.ProjectEntity;
+
 import certis.CertisHomepage.domain.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,3 +28,4 @@ public class ProjectDto {
     }
 
 }
+*/

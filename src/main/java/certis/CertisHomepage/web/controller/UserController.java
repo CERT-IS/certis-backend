@@ -13,6 +13,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class UserController {
@@ -75,8 +77,8 @@ public class UserController {
                 .httpOnly(true)
                 .path("/")
                 .maxAge(refreshTokenMaxAge)
-                .secure(true) //https 환경에서만 쿠키가 발동 이거는 애매하네.
-                .sameSite("Strict")   //서드파티쿠키와 관련됨. 나중에 고쳐야할듯 cors관련해서 문제 발생할수도
+                .secure(false) //https 환경에서만 쿠키가 발동 이거는 애매하네.
+                .sameSite("Lax")   //서드파티쿠키와 관련됨. 나중에 고쳐야할듯 cors관련해서 문제 발생할수도
                 .build();
 
         return ResponseEntity.ok()
@@ -98,6 +100,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "로그아웃할때 쿠키 제거", description = "쿠키refresh-token을 제거해줘야함")
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletResponse response){
 
@@ -107,6 +110,7 @@ public class UserController {
         cookie.setMaxAge(0); // 쿠키를 즉시 삭제
         response.addCookie(cookie);
 
+        log.info("refresh-token쿠키 제거.");
         return ResponseEntity.ok().build();
     }
 
