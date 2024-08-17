@@ -20,22 +20,19 @@ public class EventEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    //date를 그냥 문자열로 받을껀가?
-    private String date;
-
     private String eventName;
-
-    private String host;
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    private LocalDateTime startDate;
+
+    private LocalDateTime endDate;
 
     private LocalDateTime postedAt;
 
     private LocalDateTime modifiedAt;
 
-    private Long userId;
 
 
 }

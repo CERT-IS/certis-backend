@@ -3,7 +3,7 @@ FROM openjdk:17-slim
 ENV TZ=Asia/Seoul
 EXPOSE 8080
 
-ARG JAR_FILE=build/libs/CertisHomepage-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=build/libs/certishomepage:1.0.0.jar
 COPY ${JAR_FILE} app.jar
 
 ENTRYPOINT ["java", "-jar", "/app.jar"]

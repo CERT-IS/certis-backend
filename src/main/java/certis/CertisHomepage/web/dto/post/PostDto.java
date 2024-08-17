@@ -41,8 +41,6 @@ public class PostDto {
 
     private LocalDateTime modifiedAt;
 
-    //private List<MultipartFile> files;
-
 
 
     public static PostDto toDto(PostEntity post){

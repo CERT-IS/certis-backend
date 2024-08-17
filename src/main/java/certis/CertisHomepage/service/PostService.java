@@ -1,11 +1,11 @@
 package certis.CertisHomepage.service;
 
-import certis.CertisHomepage.common.Pagination;
 import certis.CertisHomepage.common.api.PageApi;
 import certis.CertisHomepage.domain.*;
 import certis.CertisHomepage.repository.ImageRepository;
-import certis.CertisHomepage.repository.PostRepository;
+import certis.CertisHomepage.repository.post.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
+import certis.CertisHomepage.repository.post.SearchCr;
 import certis.CertisHomepage.web.dto.post.PostDto;
 import certis.CertisHomepage.web.dto.post.GetPostResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -39,31 +38,7 @@ public class PostService {
     //@Transactional(readOnly = true)
     public PageApi<List<PostDto>> getPosts(Pageable pageable, BoardType boardType){
 
-        //다들고 와버리면 데이터가 많을수록 올래걸릴거임. -> querydsl
-        var list = postRepository.findByBoardType(boardType, pageable); //이렇게만 해줘도 postEntity를 findAll해서 찾아오고 페이징과 정렬을 한 상태인것임!
-
-        //stream으로 list에서 뽑아온 entity받아서 map으로 postDto::toDto메소드사용해서 List로
-        List<PostDto> postDtos = list.stream()
-                .map(PostDto::toDto)
-                .collect(toList());
-
-                var pagination = Pagination.builder()
-                .page(list.getNumber())
-                .size(list.getSize())
-                .currentElements(list.getNumberOfElements())
-                .totalElements(list.getTotalElements())
-                .totalPage(list.getTotalPages())
-                .build();
-
-
-
-        var response = PageApi.<List<PostDto>>builder()
-                .body(postDtos)
-                .pagination(pagination)
-                .build()
-                ;
-
-        return response;
+        return postRepository.getPosts(pageable, boardType);
     }
 
     //개별 게시물 조회
@@ -108,6 +83,10 @@ public class PostService {
     //URL에서는 슬래시(/)를 사용해야 하므로, 역슬래시를 슬래시로 교체.
     private String convertToUrl(String storedImageUrl) {
         return "/" + storedImageUrl.replace("\\","/");
+    }
+
+    public PageApi<List<PostDto>> searchPosts(Pageable pageable, BoardType boardType, SearchCr criteria, String word){
+        return postRepository.searchPosts(pageable,boardType,criteria,word);
     }
 
 

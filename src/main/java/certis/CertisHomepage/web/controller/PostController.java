@@ -111,14 +111,14 @@ public class PostController {
             throw new ApiException(UserErrorCode.USER_NOT_FOUND);
         }
 
+        String bt = boardType.toUpperCase();
         //NOTI도 아니고 PROJECT도 아니면 오류 발생
         try {
-            BoardType type = BoardType.valueOf(boardType.toUpperCase());
+            BoardType type = BoardType.valueOf(bt);
             postDto.setBoardType(type);
         }catch (IllegalArgumentException e){
             throw new ApiException(PostErrorCode.POST_NOT_EXIST);
         }
-        postDto.setBoardType(BoardType.valueOf(boardType));
         return new Response("성공", " 게시물 작성",postService.write(postDto, user, files));
 
 
