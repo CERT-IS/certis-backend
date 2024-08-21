@@ -1,7 +1,6 @@
 package certis.CertisHomepage.service;
 
 import certis.CertisHomepage.common.error.UserErrorCode;
-import certis.CertisHomepage.converter.UserConverter;
 import certis.CertisHomepage.domain.RoleType;
 import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
@@ -25,8 +24,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserConverter userConverter;
-
     private final TokenBusiness tokenBusiness;
 
 

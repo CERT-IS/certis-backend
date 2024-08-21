@@ -1,4 +1,4 @@
-package certis.CertisHomepage.service;
+package certis.CertisHomepage.common;
 
 import certis.CertisHomepage.domain.entity.ImageEntity;
 import lombok.extern.slf4j.Slf4j;

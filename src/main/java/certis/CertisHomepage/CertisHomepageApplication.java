@@ -17,4 +17,14 @@ public class CertisHomepageApplication {
 	public String index(){
 		return "introduce.html";
 	}
+
+	@GetMapping("/login")
+	public String login(){
+		return "login.html";
+	}
+
+	@GetMapping("/register")
+	public String register(){
+		return "register.html";
+	}
 }
