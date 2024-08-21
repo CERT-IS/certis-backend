@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동아리 소개</title>
+  <link rel="icon" href="img/certis배너무당벌레.png" type="image/png">
+  <link rel="stylesheet" href="/css/calender.css">
+</head>
+<body>
+<div id="header-placeholder"></div>
+<div class="banner"></div>
+
+<div class="calendar-container">
+  <div class="calendar-header">
+    <button id="prevMonth"><</button>
+    <h2 id="currentMonth"></h2>
+    <button id="nextMonth">></button>
+  </div>
+  <div id="calendar"></div>
+</div>
+
+<hr style="border-top: 2px dashed #a7a7a7; width:85%; margin: 0 auto;">
+
+<button id = "addEventButton">이벤트 추가</button>
+
+<div id="eventModal">
+  <div id="modalContent">
+    <label for="eventTitle">제목:</label>
+            <input type="text" id="eventTitle"><br><br>
+            <label for="startDate">시작일:</label>
+            <input type="date" id="startDate"><br><br>
+            <label for="endDate">종료일:</label>
+            <input type="date" id="endDate"><br><br>
+            <button id="saveEvent">저장</button>
+            <button id="closeModal">닫기</button>
+  </div>
+
+</div>
+
+<script src="/navi.js"></script>
+<script src="/calender.js"></script>
+
+</body>
+<footer id="footer">
+</footer>
+<script src="/footer.js"></script>
+</html>

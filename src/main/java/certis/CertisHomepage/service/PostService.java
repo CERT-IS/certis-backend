@@ -1,13 +1,16 @@
 package certis.CertisHomepage.service;
 
-import certis.CertisHomepage.common.Pagination;
+import certis.CertisHomepage.domain.Pagination;
 import certis.CertisHomepage.common.api.PageApi;
 import certis.CertisHomepage.domain.*;
+import certis.CertisHomepage.domain.entity.ImageEntity;
+import certis.CertisHomepage.domain.entity.PostEntity;
+import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.repository.ImageRepository;
 import certis.CertisHomepage.repository.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
-import certis.CertisHomepage.web.dto.post.PostDto;
-import certis.CertisHomepage.web.dto.post.GetPostResponse;
+import certis.CertisHomepage.domain.dto.post.PostDto;
+import certis.CertisHomepage.domain.dto.post.GetPostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 

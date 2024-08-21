@@ -1,0 +1,45 @@
+footer {
+  background-color: hsl(0, 0%, 6%);
+  padding: 70px 0;
+  margin-top:auto;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+footer h1 {
+  font-size: 60px;
+  text-align: left;
+  margin-left: 200px;
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
+}
+
+footer p {
+  font-size: 20px;
+  margin-left: 60px;
+}
+
+.text-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 200px 20px 60px;
+}
+
+.text-container img{
+  cursor: pointer;
+  margin-left: 50px;
+}
+
+
+.logo img{
+  width: 50px;
+  height: auto;
+}
+
+#bugimg {
+  max-width: 150px;
+  height: auto;
+  margin-left: 20px;
+}
+

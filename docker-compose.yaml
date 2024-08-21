@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  mysql:
+    image: mysql:8.0
+    networks:
+      - certis_network
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/data:/var/lib/mysql
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    environment:
+      - TZ=Asia/Seoul
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=mysqluser
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=certis-service
+
+  certis-service:
+    image: certis-backend:1.0.0
+    networks:
+      - certis_network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/certis-service?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=mysqluser
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+      - TOKEN_SECRET_KEY=EHA
+      - TOKEN_ACCESS_TOKEN_PLUS_HOUR=1
+      - TOKEN_REFRESH_TOKEN_PLUS_HOUR=24
+
+networks:
+  certis_network:
+    driver: bridge

@@ -1,0 +1,51 @@
+h1 {
+  margin: 100px 0 20px 180px; font-size:2.5em;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 70px 0 0 0;
+}
+
+.detail-container {
+  margin: 20px;
+}
+
+.notice-title {
+  font-size: 1.8em;
+  font-weight: bold;
+  color:rgb(102, 102, 102);
+  margin: 0 0 50px 180px;
+}
+
+.notice-post_date{
+  font-size: 1.3em;
+  font-weight: bold;
+  color: rgb(155, 154, 154);
+  margin: -30px 0 20px 180px;
+}
+
+.notice-content {
+  border-top: 1px solid #969696;
+  padding: 30px;
+  width: 75%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  min-height: 500px;
+  font-size: 20px; 
+}
+
+.button-container {
+  text-align: right; 
+  margin-top: 10px;
+}
+
+.button-container button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: inline-block; /* 인라인 블록 요소로 설정 */
+  border-radius: 5px; 
+}

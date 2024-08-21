@@ -1,0 +1,44 @@
+body{
+  padding: 70px 0 0 0;
+}
+
+.notice-board {
+  width: 40%;
+  max-width: 600px;
+  margin: 20px;
+  position: relative;
+  left : 1%; 
+  
+}
+
+.notice-board-header {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.notice-board table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.notice-board tr{
+  border : 1px solid rgb(206, 204, 204);
+}
+
+.notice-board th, .notice-board td {
+  padding: 10px;
+  text-align: left;
+}
+
+.notice-board th {
+  background-color: #f9f9f9;
+}
+
+.notice-board td {
+  cursor: pointer;
+}
+
+.notice-board tr:hover {
+  background-color: #e0e0e0; /* 마우스를 올릴 때 모든 셀의 배경 색상 변경 */
+}

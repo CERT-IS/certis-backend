@@ -1,6 +1,6 @@
 package certis.CertisHomepage.common.api;
 
-import certis.CertisHomepage.common.Pagination;
+import certis.CertisHomepage.domain.Pagination;
 import lombok.*;
 
 @Getter

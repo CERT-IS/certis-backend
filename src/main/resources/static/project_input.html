@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>새 글 작성</title>
+  <link rel="stylesheet" href="/css/project_input.css">
+  <link rel="icon" href="/img/certis배너무당벌레.png" type="image/png">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <h1>프로젝트</h1>
+  <div class="form-container">
+    <input type="text" id="title" placeholder="제목">
+    <textarea id="content" rows="10" placeholder="내용"></textarea>
+    <input type="file" id="file-upload" accept=".jpg, .jpeg, .png, .pdf, .doc, .docx">
+  </div>
+  <div class="button-container">
+    <button class="button" onclick="addPost()">글 작성</button>
+  </div>
+  <script src="/navi.js"></script>
+  <script src="/project_input.js"></script>
+</body>
+<footer id="footer">
+</footer>
+<script src="/footer.js"></script>
+</html>

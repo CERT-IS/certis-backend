@@ -1,8 +1,8 @@
 package certis.CertisHomepage.service;
 
-import certis.CertisHomepage.domain.ProjectEntity;
+import certis.CertisHomepage.domain.entity.ProjectEntity;
 import certis.CertisHomepage.repository.ProjectRepository;
-import certis.CertisHomepage.web.dto.project.ProjectDto;
+import certis.CertisHomepage.domain.dto.project.ProjectDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

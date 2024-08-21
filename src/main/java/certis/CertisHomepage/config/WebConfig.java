@@ -1,10 +1,9 @@
 package certis.CertisHomepage.config;
 
-import certis.CertisHomepage.interceptor.AuthorizationInterceptor;
-import certis.CertisHomepage.interceptor.NotiInterceptor;
+import certis.CertisHomepage.common.interceptor.AuthorizationInterceptor;
+import certis.CertisHomepage.common.interceptor.NotiInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

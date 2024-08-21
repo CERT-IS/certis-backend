@@ -1,8 +1,6 @@
 package certis.CertisHomepage.service;
 
-import certis.CertisHomepage.common.error.ErrorCode;
-import certis.CertisHomepage.domain.ImageEntity;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.domain.entity.ImageEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;

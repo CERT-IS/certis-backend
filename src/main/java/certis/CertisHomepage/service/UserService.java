@@ -3,21 +3,19 @@ package certis.CertisHomepage.service;
 import certis.CertisHomepage.common.error.UserErrorCode;
 import certis.CertisHomepage.converter.UserConverter;
 import certis.CertisHomepage.domain.RoleType;
-import certis.CertisHomepage.domain.UserEntity;
+import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
 import certis.CertisHomepage.domain.token.controller.model.TokenResponse;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
 import certis.CertisHomepage.repository.UserRepository;
-import certis.CertisHomepage.web.dto.user.UserLoginRequest;
-import certis.CertisHomepage.web.dto.user.UserRegisterRequest;
-import certis.CertisHomepage.web.dto.user.UserResponse;
+import certis.CertisHomepage.domain.dto.user.UserLoginRequest;
+import certis.CertisHomepage.domain.dto.user.UserRegisterRequest;
+import certis.CertisHomepage.domain.dto.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

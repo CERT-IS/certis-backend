@@ -1,10 +1,9 @@
 package certis.CertisHomepage.domain.token.helper;
 
-import certis.CertisHomepage.common.error.ErrorCode;
 import certis.CertisHomepage.common.error.TokenErrorCode;
 import certis.CertisHomepage.domain.token.ifs.TokenHelperIfs;
 import certis.CertisHomepage.domain.token.model.TokenDto;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -13,7 +12,6 @@ import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.rmi.ServerException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;

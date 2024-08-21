@@ -3,10 +3,9 @@ package certis.CertisHomepage.domain.token.converter;
 import certis.CertisHomepage.common.error.ErrorCode;
 import certis.CertisHomepage.domain.token.controller.model.TokenResponse;
 import certis.CertisHomepage.domain.token.model.TokenDto;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
