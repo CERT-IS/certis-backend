@@ -46,18 +46,21 @@ public class TokenBusiness {
 
                     //사용자가 가지고있던 기존 리프레쉬 토큰 삭제
                     refreshTokenRepository.findByUser(userEntity)
-                                    .ifPresent(refreshTokenRepository::delete);
+                                    .ifPresentOrElse(
+                                            existingToken -> { //존재하는 토큰은
+                                                existingToken.setToken(refreshToken.getToken());
+                                                existingToken.setExpiredAt(refreshToken.getExpiredAt());
+                                                refreshTokenRepository.save(existingToken);
+                                            },
+                                            () -> {  // 없다면
+                                                RefreshTokenEntity refreshTokenEntity = RefreshTokenEntity.builder()
+                                                        .token(refreshToken.getToken())
+                                                        .expiredAt(refreshToken.getExpiredAt())
+                                                        .user(userEntity).build();
+                                                refreshTokenRepository.save(refreshTokenEntity);
+                                            }
+                                    );
 
-                    log.info("refreshtoken은 {}",refreshToken.getToken());
-                    log.info("refreshtoken의 만료시간은 {}",refreshToken.getExpiredAt());
-
-
-                    RefreshTokenEntity refreshTokenEntity = RefreshTokenEntity.builder()
-                            .token(refreshToken.getToken())
-                            .expiredAt(refreshToken.getExpiredAt())
-                            .user(userEntity).build();
-
-                    refreshTokenRepository.save(refreshTokenEntity);
 
                     return tokenConverter.toResponse(accessToken, refreshToken);
 
