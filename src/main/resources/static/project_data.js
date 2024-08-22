@@ -12,30 +12,38 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function loadPostDetail(id) {
-  const boardType = 'project';
-  const url = `/${boardType}/${id}`;
+    const boardType = 'project';
+    const url = `/${boardType}/${id}`;
 
-  fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('게시글을 불러오는 데 문제가 발생했습니다.');
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data.success) {
-          const post = data.data;
-          document.getElementById('post-title').innerText = post.제목;
-          document.getElementById('post-date').innerText = post.작성일;
-          document.getElementById('post-content').innerText = post.내용;
-        } else {
-          alert(data.message);
-        }
-      })
-      .catch(error => {
-        console.error('문제가 발생했습니다:', error);
-        alert('게시글을 불러오는 데 문제가 발생했습니다.');
-      });
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('게시글을 불러오는 데 문제가 발생했습니다.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                const post = data.data;
+                document.getElementById('post-title').innerText = post.title;
+                document.getElementById('post-date').innerText = new Date(post.registeredAt).toLocaleString();
+                document.getElementById('post-content').innerText = post.content;
+
+                const imageContainer = document.getElementById('post-images'); // html Element 생성해야함
+                post.postImageUrlList.forEach(imageUrl => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageUrl;
+                    imgElement.alt = 'image';
+                    imageContainer.appendChild(imgElement);
+                });
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('문제가 발생했습니다:', error);
+            alert('게시글을 불러오는 데 문제가 발생했습니다.');
+        });
 }
 
 function deletePost(id) {

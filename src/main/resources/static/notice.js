@@ -21,7 +21,7 @@ function loadBoardData() {
             }
             tableBody.innerHTML = '';
 
-            const posts = data.data || [];
+            const posts = data.body || [];
             if (!Array.isArray(posts)) {
                 console.error('게시글 데이터가 배열이 아닙니다.', posts);
                 return;
@@ -31,8 +31,8 @@ function loadBoardData() {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                 <td>
-                    <span style="font-weight:bold;font-size:1.5em; color:rgb(102, 102, 102);">${item.제목}</span><br><br>
-                    <span style="color: rgb(155, 154, 154);">${item.작성일}</span>
+                    <span style="font-weight:bold;font-size:1.5em; color:rgb(102, 102, 102);">${item.title}</span><br><br>
+                    <span style="color: rgb(155, 154, 154);">${new Date(item.registeredAt).toLocaleString()}</span>
                 </td>
                 `;
                 row.addEventListener('click', function() {
