@@ -9,6 +9,7 @@ import certis.CertisHomepage.domain.token.TokenBusiness;
 import certis.CertisHomepage.domain.token.controller.model.TokenResponse;
 import certis.CertisHomepage.exception.ApiException;
 import certis.CertisHomepage.repository.UserRepository;
+import certis.CertisHomepage.web.dto.user.UserDto;
 import certis.CertisHomepage.web.dto.user.UserLoginRequest;
 import certis.CertisHomepage.web.dto.user.UserRegisterRequest;
 import certis.CertisHomepage.web.dto.user.UserResponse;
@@ -22,6 +23,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -102,15 +104,20 @@ public class UserService {
         );
     }
 
-    public List<UserEntity> findAll(){
-        return  userRepository.findAll();
+    public List<UserDto> findAll(){
+        return  userRepository.findAll().stream()
+                .map(UserDto::convertToDto)
+                .collect(Collectors.toList());
+
     }
 
 
-    public UserEntity findUser(Long id){
-        return userRepository.findById(id).orElseThrow(() -> {
+    public UserDto findUser(Long id){
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("User Id를 찾을 수없습니다.");
         });
+
+        return UserDto.convertToDto(user);
     }
 
     public void checkAccountDuplicate(String account){

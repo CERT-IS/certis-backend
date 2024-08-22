@@ -73,7 +73,7 @@ public class PostController {
     public PageApi<List<PostDto>> searchPosts(
             @PathVariable BoardType boardType,
             @RequestParam(value = "word", required = false)String word,
-            @RequestParam(value = "crieria", required = false, defaultValue = "TITLE")SearchCr criteria,
+            @RequestParam(value = "criteria", required = false, defaultValue = "TITLE")SearchCr criteria,
             @PageableDefault(page = 0, size = 10)Pageable pageable
     ){
         return postService.searchPosts(pageable,boardType,criteria,word);

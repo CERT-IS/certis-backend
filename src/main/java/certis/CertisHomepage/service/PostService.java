@@ -130,7 +130,7 @@ public class PostService {
             return new IllegalArgumentException("해당 게시물 id 가 없습니다");
         });
 
-        post.setTitle(postDto.getContent());
+        post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setModifiedAt(LocalDateTime.now());
 
