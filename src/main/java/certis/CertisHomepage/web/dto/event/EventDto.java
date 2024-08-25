@@ -1,23 +1,27 @@
 package certis.CertisHomepage.web.dto.event;
 
 import certis.CertisHomepage.domain.EventEntity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Builder
 @Data
 public class EventDto {
 
 
+    @NotBlank
     private String eventName;
 
+    @NotNull
     private String content;
 
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
 
     public static EventDto toDto(EventEntity event){

@@ -3,12 +3,11 @@ package certis.CertisHomepage.repository.event;
 
 import certis.CertisHomepage.domain.EventEntity;
 import certis.CertisHomepage.domain.QEventEntity;
-import certis.CertisHomepage.web.dto.event.EventDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,12 +17,12 @@ public class EventRepositoryImpl implements EventRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<EventEntity> getEvents(LocalDateTime start, LocalDateTime end) {
+    public List<EventEntity> getEvents(LocalDate start, LocalDate end) {
 
         QEventEntity event = QEventEntity.eventEntity;
 
         return queryFactory.selectFrom(event)
-                .where(event.startDate.between(start, end).and(event.endDate.between(start, end)))
+                .where(event.startDate.goe(start).and(event.endDate.loe(end)))
                 .fetch();
 
     }

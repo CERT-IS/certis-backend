@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -25,14 +26,32 @@ public class EventEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     private LocalDateTime postedAt;
 
     private LocalDateTime modifiedAt;
 
 
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setModifiedAt(LocalDateTime time){
+        this.modifiedAt = time;
+    }
 }
