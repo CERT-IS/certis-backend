@@ -56,8 +56,8 @@ public class WebConfig implements WebMvcConfigurer {
         //공지사항 게시판 - 관리자만 작성 가능하게
         registry.addInterceptor(notiInterceptor)
                 .addPathPatterns("/NOTI/write", "/noti/write", "/project/write", "/PROJECT/write")
-                .addPathPatterns("/users/**"); //전체 회원보기나 유저 조회도 일단 관리자만 볼 수있게
-
+                .addPathPatterns("/users/**") //전체 회원보기나 유저 조회도 일단 관리자만 볼 수있게
+                .addPathPatterns("/event/delete/{id}","/event/write", "/event/{id}");
 
     }
 }
