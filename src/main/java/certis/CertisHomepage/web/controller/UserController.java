@@ -69,12 +69,13 @@ public class UserController {
 
         var response = userService.login(userLoginRequest);
 
+        String accesstoken = response.getAccessToken();
         String refreshToken = response.getRefreshToken();
 
         long refreshTokenMaxAge = Duration.between(LocalDateTime.now(), response.getRefreshTokenExpiredAt()).getSeconds();
 
         ResponseCookie refreshTokenCookie =  ResponseCookie.from("refresh-token",refreshToken)
-                .httpOnly(true)
+                .httpOnly(false) // js에서 쿠키확인을 못함
                 .path("/")
                 .maxAge(refreshTokenMaxAge)
                 .secure(false) //https 환경에서만 쿠키가 발동 이거는 애매하네.
@@ -83,6 +84,7 @@ public class UserController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
+                .header("authorization-token", accesstoken)
                 .body(response);
 
     }
