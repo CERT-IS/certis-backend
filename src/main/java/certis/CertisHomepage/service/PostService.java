@@ -43,7 +43,7 @@ public class PostService {
     }
 
     //개별 게시물 조회
-    @Transactional(readOnly = true)
+    @Transactional
     public GetPostResponse getPost(Long id){
 
         //지금 http://localhost:8080/photo/photo/20240727/860469845873500.jpg 이런 형식으로 내려주는데
@@ -54,9 +54,8 @@ public class PostService {
         });
         log.info("게시물을 찾았습니다.");
         post.increaseViewCnt(); //게시물 조회수 증가.
+        postRepository.save(post);
 
-        // Hibernate의 initialize 메서드를 사용하여 UserEntity 초기화
-        //Hibernate.initialize(post.getUser());
 
         Long userId = post.getUser().getId();
         UserEntity user = userRepository.findByIdAndStatus(userId, UserStatus.REGISTERED);
