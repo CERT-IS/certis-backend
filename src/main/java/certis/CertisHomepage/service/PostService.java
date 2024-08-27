@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -92,20 +93,21 @@ public class PostService {
 
     //게시물 작성
     @Transactional
-    public PostDto write(PostDto postDto, UserEntity userEntity, List<MultipartFile> files) throws IOException {
+    public PostDto write(BoardType type, PostDto postDto, UserEntity userEntity, List<MultipartFile> files) throws IOException {
         log.info("userEntity is: {}", userEntity);
+        if(files == null){
+            files = new ArrayList<>();
+        }
         List<ImageEntity> imageList = fileHandler.parseFileInfo(files);
 
         PostEntity post = PostEntity.builder()
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
                 .view(0L)
-                .boardType(postDto.getBoardType())
+                .boardType(type)
                 .registeredAt(LocalDateTime.now())
                 .user(userEntity)
                 .build();
-
-        //userEntity.addPost(post); // Bidirectional relationship 설정
 
         if(!imageList.isEmpty()){
             for (ImageEntity image : imageList){
@@ -125,7 +127,7 @@ public class PostService {
 
     //게시물 수정
     @Transactional
-    public PostDto update(Long id, PostDto postDto, List<MultipartFile> files) throws IOException {
+    public PostDto update(Long id, BoardType type, PostDto postDto, List<MultipartFile> files) throws IOException {
         PostEntity post = postRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("해당 게시물 id 가 없습니다");
         });

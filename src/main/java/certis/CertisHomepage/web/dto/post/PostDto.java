@@ -33,7 +33,6 @@ public class PostDto {
 
     private LocalDateTime registeredAt;
 
-    private BoardType boardType;
 
     private Long userId;
 
@@ -44,6 +43,6 @@ public class PostDto {
 
 
     public static PostDto toDto(PostEntity post){
-        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getRegisteredAt(), post.getBoardType(),post.getUser().getId(),post.getView(),post.getModifiedAt());
+        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getRegisteredAt(), post.getUser().getId(),post.getView(),post.getModifiedAt());
     }
 }
