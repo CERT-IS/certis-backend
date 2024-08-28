@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동아리 소개</title>
+  <link rel="stylesheet" href="/css/navi.css">
+  <link rel="icon" href="/img/certis배너무당벌레.png" type="image/png">
+  <link rel="stylesheet" href="/css/introduce.css">
+  <style>
+    .upanimation {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease-out, transform 0.5s ease-in-out;
+      will-change: opacity, transform;
+    }
+    
+    .upanimation h1{
+      font-size: 50px;
+    }
+    
+    .upanimation p{
+      font-size: 22px;
+    }
+    
+    
+    .upanimation.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .upanimation img {
+      width: 350px; 
+      height: auto;
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5); 
+      border-radius: 10px;
+    }
+    
+    .appearanimation {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+      will-change: opacity;
+    }
+    
+    .appearanimation.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="banner"></div>
+  
+  <section class="section1"> 
+    <video autoplay muted loop id="background-video1">
+      <source src="../img/certis-video1.mp4" type="video/mp4">
+    </video>
+  </section>
+  <section class="section2">
+    <video autoplay muted loop id="background-video2">
+      <source src="../img/certis-video2.mp4" type="video/mp4">
+    </video>
+  </section> 
+  <section class="section3">
+    <div class="info-box">
+      <h1>Since</h1>
+      <p>2007</p>
+    </div>
+    <div class="info-box">
+      <h1>현재 회원 수</h1>
+      <p>100 +</p>
+    </div>
+    <div class="info-box">
+      <h1>누적 회원 수</h1>
+      <p>700 +</p>
+    </div>
+  </section>
+  <section class="textsection">
+  <h1 style="text-align: center;text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);" class="appearanimation ">CERT-IS 의 대내 활동</h1>
+  </section>
+  <section>
+    <div class="upanimation" style="display: flex; flex-wrap: wrap;">
+      <div style="width: 40%; flex-direction: column; margin-left: 70px; margin-top:100px;">
+          <h1>해입교</h1>
+          <p>해입교는 해킹 입문 교육으로 해킹과 보안을 처음 접하시는 분들을 위한 교육입니다.</p>
+      </div>
+      <div style="display: flex; justify-content: space-around; gap: 40px; margin-left: 70px;">
+          <img src="../img/해입교3.jpg" class="upanimation" >
+          <img src="../img/해입교2.jpg" class="upanimation" >
+      </div>
+  </div>
+  </section>
+  <section>
+  <div class="upanimation" style="display: flex; flex-wrap: wrap; margin-top:100px;">
+      <div style="display: flex; flex-direction: column; margin-left: 150px;">
+          <div style="display: flex; justify-content: space-around; gap: 60px;">
+              <img src="../img/해입교1.jpg" decoding="async">
+              <img src="../img/해입교4.jpg" decoding="async">
+          </div>
+      </div>
+      <div style="display: flex; flex-direction: column; justify-content: center; text-align:right; margin-left: 100px">
+          <h1>발표톤</h1>
+          <p>자유 주제를 선택하여 발표를 하는 행사입니다<br>해킹과 보안이 아닌 자유로운 주제를 가지고 발표를 합니다</p>
+      </div>
+  </div> 
+</section>
+<section>
+  <div class="upanimation" style="display: flex; flex-wrap: wrap; margin-top:200px; text-align:center">
+    <div style="width: 40%; flex-direction: column; margin-left: 10px;">
+        <h1>프로젝트 & 스터디</h1>
+    </div>
+    <div style="display: flex; justify-content: space-around; gap: 40px; margin-left: 70px;">
+        <img src="../img/study1.png" class="upanimation" >
+        <img src="../img/study2.png" class="upanimation"  >
+    </div>
+</div>
+  </section>
+  <section class="textsection" style="background-color: black; display:flex; justify-content: center; align-items:center">
+    <h1 style=" color:white; text-shadow: 2px 2px 5px rgb(255, 255, 255,0.8);" class="appearanimation"> 대외 활동에도 힘쓰는 CERT-IS</h1>
+    </section>
+  <section class="section4">
+    <div class="upanimation" style="display: flex; flex-wrap: wrap;">
+      <div style="width: 40%; flex-direction: column; margin:300px 0 0 100px;">
+          <h1>Go Together</h1>
+          <p>학생들을 대상으로 교육을 진행하는 행사 입니다</p>
+      </div>
+      <div style="display: flex; justify-content: space-around; width:50%; margin-top:150px;">
+          <img src="../img/Gotogether.jpeg" style="width: 70%;">
+       </div>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; margin-top: 300px;">
+    <div style="display: flex; gap:100px; width: 40%;" class="upanimation">
+            <img src="../img/부부해킹캠프.jpg" style="width: 60%; height: auto; margin-left:100px"   decoding="async">
+            <img src="../img/해킹캠프2.jpeg" style="width: 60%; height: auto;"   decoding="async">
+    </div>
+    <div class="upanimation" style="display: flex; flex-direction: column; justify-content: center; text-align: right; padding-left: 60px; width: 50%;">
+        <h1>해킹 캠프</h1>
+        <p>타학교와 협력하여 CTF를 하는 행사입니다.</p>
+    </div>
+</div>
+
+<div class="textsection" style="margin: 300px 0 0px 0">
+  <h1 style="color: white; text-align:center" class="appearanimation">외부 세미나 행사와 교육 프로그램</h1>
+</div>
+<div class="exgrid">
+  <img src="../img/부울.jpg" class="appearanimation" style="width: 700px;  grid-area:img1;"  decoding="async">
+  <img src="../img/화햇.jpg" class="appearanimation" style="grid-area:img2; margin-top:200px; " decoding="async">
+  <img src="../img/동환사진.jpg" class="appearanimation" style="grid-area:img3; margin-top:-100px;"  decoding="async">
+  <img src="../img/시큐리티캠퍼스사진.jpg" class="appearanimation" style="width: 700px; margin-top:100px; grid-area:img4 ;"  decoding="async">
+</div>
+  </section>
+  <section class="section5"> 
+    <div >
+      <h1 class="appearanimation">CERT-IS 의 연대기</h1>
+    </div>
+    <div class="timeline">
+      <div class="checkpoint appearanimation" >
+        <div>
+          <h2>2007</h2>
+          <h3>1. 15</h3>
+          <p>동아리 창설</p>
+          <h3>2.</h3>
+          <p>한국정보보호진흥원 2007년도 대학정보보호동아리 지원 사업 선정</p>
+          <h3>7.</h3>
+          <p>한국정보보호진흥원 주최 제 4회 해킹방어대회 금상 수상</p>
+          <h3>8.</h3>
+          <p>DEFCON 15 - Song of Freedom 팀으로 참가 6위<br>
+          한국정보보호진흥원 주최 제 2회 SW 보안취약점 찾기대회 우수상 수상</p>
+          
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2008</h2>
+          <h3>2.</h3>
+          <p>한국정보보호진흥원 2008년도 대학정보보호동아리지원사업 선정<br>
+          PADOCON CTF 3위</p>
+          <h3>7.</h3>
+          <p>한국정보문화진흥원 2008년도 내고향 it봉사단 활동단 선정 <br>
+          한국정보보호진흥원장 인터넷 정보보호 온누리 캠페인 봉사단 선정</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2009</h2>
+          <h3>2.</h3>
+          <p>한국정보보호진흥원 2009년도 대학정보보호동아리 지원 사업 선정</p>
+          <h3>5.</h3>
+          <p>방송통신위원회 주최 정보보호 정책 아이디어 공모전 우수상 수상</p>
+          <h3>9.</h3>
+          <p>한국인터넷진흥원 주최 정보보호 경진대회 오픈소스 발굴 분야 최우수상</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2010</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2010년도 대학정보보호동아리 지원사업 선정</p>
+          <h2>12.</h2>
+          <p>잉카 인터넷 지역인재 지원사업 동아리 선정</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2011</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2011년도 대학정보보호동아리 지원사업 선정</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2012</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2012년도 대학정보보호동아리 지원사업 선정</p>
+          <h3>7.</h3>
+          <p>JUST FOR FUN 2위 입상</p>
+          <h3>9.</h3>
+          <p>제 1회 암호공모전 1분야 특별상</p>
+          <h3>11.</h3>
+          <p>POC 여성 해킹대회본선 진출</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2013</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2013년도 대학정보보호동아리 지원사업 선정</p>
+          <h3>5.</h3>
+          <p>한국정보보호진흥원 주최 제 10회 해킹 방어대회 본선 진출</p>
+          <h3>9.</h3>
+          <p>화이트햇 본선진출</p>
+          <h3>11.</h3>
+          <p>POC 여성 해킹대회 본선 진출</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation" >
+        <div>
+          <h2>2014</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2014년도 대학정보보호동아리 지원사업 선정</p>
+          <h3>3.</h3>
+          <p>BOB 2기 TOP10 2명 선정</p>
+          <h3>12.</h3>
+          <p>동아리부원 소프트웨어 멤버쉽 선정</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2015</h2>
+          <h3>2.</h3>
+          <p>BOB 3기 TOP30 2명 선정</p>
+          <h3>7.</h3>
+          <p>삼성전자주식회사 Samsung Software Friendship 4기 선정</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2017</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2017년도 대학정보보호동아리 지원사업 선정</p>
+          <h3>7.</h3>
+          <p>HUST CTF 4등</p>
+          <h3>11.</h3>
+          <p>해군교육사령관 17년도 해군 정보보호 경진대회 우수 수상자</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2018</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2018년도 대학정보보호동아리 지원사업 선정<br>
+          codegate 2017 zerone Brain University 수상</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2019</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2019년도 대학정보보호동아리 지원사업 선정</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2020</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2020년도 대학정보보호동아리 지원사업 선정</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2021</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2021년도 대학정보보호동아리 지원사업 선정</p>
+        </div>
+      </div>
+
+      <div class="checkpoint appearanimation">
+        <div>
+          <h2>2023</h2>
+          <h3>2.</h3>
+          <p>한국인터넷진흥원 2023년도 대학정보보호동아리 지원사업 선정</p>
+          <h3>8.</h3>
+          <p>제4회 KOSPO 정보보안 경진대회 장려상</p>
+          <h3>9.</h3>
+          <p>제 2회 경남권 사이버 보안경진 대회 특별상</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="/navi.js"></script>
+  <script src="/introduce.js"></script>
+</body>
+<footer id="footer">
+</footer>
+<script src="/footer.js"></script>
+</html>

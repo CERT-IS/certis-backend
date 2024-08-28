@@ -32,11 +32,11 @@ public class UserService {
 
 
     /*
-    *   1.request -> entity
-    *   2.entity -> save
-    *   3. entity -> response
-    *   4. return response
-    * */
+     *   1.request -> entity
+     *   2.entity -> save
+     *   3. entity -> response
+     *   4. return response
+     * */
     public UserResponse register(UserRegisterRequest userRegisterRequest){
 
         //userId가 db에있는지 중복 체크
@@ -67,12 +67,13 @@ public class UserService {
 
     }
 
-    /*
-    *   1.account, password 를 가지고 사용자 체크
+
+    /*   1.account, password 를 가지고 사용자 체크
     *   2. user Entity 로그인 확인
     *   3.token 생성
     *   4.token response
     * */
+
     @Transactional
     public TokenResponse login(UserLoginRequest request){
         var entity = getUserWithThrow(request.getAccount(), request.getPassword());

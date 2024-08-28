@@ -1,6 +1,5 @@
 package certis.CertisHomepage.common.api;
 
-import certis.CertisHomepage.common.Pagination;
 import certis.CertisHomepage.common.error.ErrorCodeIfs;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

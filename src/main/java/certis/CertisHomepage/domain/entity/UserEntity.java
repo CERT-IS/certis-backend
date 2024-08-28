@@ -43,12 +43,14 @@ public class UserEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedAt;
 
-   private Long exp;
 
-   private Long level;
+    private Long exp;
+
+    private Long level;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private RefreshTokenEntity refreshToken;
+
 
    @Column(columnDefinition = "ENUM('ADMIN', 'USER')")
    @Enumerated(EnumType.STRING) //enum에있는 이름을 매핑할때 쓰인다.
@@ -63,6 +65,7 @@ public class UserEntity {
    @Builder.Default
    private List<PostEntity> posts = new ArrayList<>();
 
+
 //    @ManyToOne
 //    @JoinColumn(name = "project_id")
 //    private ProjectEntity project;
@@ -73,5 +76,5 @@ public class UserEntity {
         post.setUser(this);
     }
 
-}
 
+}

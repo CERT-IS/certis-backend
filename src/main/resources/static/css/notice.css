@@ -1,0 +1,61 @@
+h1{
+  margin: 100px 0 20px 180px; font-size:2.5em;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+td {
+  border-radius: 10px;
+  padding: 25px;
+  text-align: left;
+}
+
+tr:hover{
+  background-color: #e0e0e0;
+  cursor: pointer; /* 마우스 포인터 변경 */
+}
+
+.form-container {
+  margin-bottom: 20px;
+}
+
+.form-container input, .form-container textarea {
+  width: 100%;
+  padding: 20px;
+  margin: 5px 0;
+}
+
+.form-container button {
+  padding: 20px 20px;
+  background-color: #a51b24;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.button-container {
+  margin :20px;
+  display:flex;
+  justify-content: flex-end;
+}
+
+
+.button-container button {
+  background-color: #ff4d4d; 
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px; 
+  transition: background-color 0.3s; 
+}
+
+body{
+  padding: 70px 0 0 0;
+  height: 3000px;
+}

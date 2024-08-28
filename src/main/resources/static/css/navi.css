@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: rgb(245, 240, 240);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 140vh;
+
+}
+
+header {
+  top: 0;
+  position: fixed;
+  width: 100%;
+}
+
+header {
+  background-color: hsl(0, 4%, 15%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  z-index: 2;
+}
+
+header .logo {
+  cursor: pointer;
+  margin-left: 40px;
+  height: 30px;
+}
+header .logo img {
+  width: 120px; /* 원하는 너비로 설정 */
+  height: 30px; /* 비율에 맞게 자동으로 높이 조절 */
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 10px 35px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 10px;
+  font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+  color: rgb(212, 35, 35);
+  border-radius: 5px;
+}
+

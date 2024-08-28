@@ -18,7 +18,7 @@ java {
 
 docker {
 	println(tasks.bootJar.outputs.files)
-	name "${project.name.toLowerCase()}:${version}"
+	name project.name+":"+version
 	dockerfile file('./Dockerfile')
 	files tasks.bootJar.outputs.files
 	buildArgs(['JAR_FILE':tasks.bootJar.outputs.files.singleFile.name])
@@ -58,7 +58,8 @@ dependencies {
 
 	//Swagger
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-
+	//thymleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 }
 
