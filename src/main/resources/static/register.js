@@ -5,15 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
         signupForm.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            var userId = document.getElementById('userid').value.trim();
+            var account = document.getElementById('account').value.trim();
             var password = document.getElementById('password').value.trim();
             var confirmPassword = document.getElementById('confirm-password').value.trim();
+            var name = document.getElementById('name').value.trim();
+            var nickname = document.getElementById('nickname').value.trim();
             var email = document.getElementById('email').value.trim();
 
             var userIdPattern = /^[^\d!@#\$%\^\&*\)\(+=._-][\w!@#\$%\^\&*\)\(+=._-]*$/;
             var emailPattern = /^[^\s]+$/;
 
-            if (!userIdPattern.test(userId)) {
+            if (!userIdPattern.test(account)) {
                 alert("아이디는 숫자나 특수 문자로 시작할 수 없습니다.");
                 return;
             }
@@ -24,16 +26,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if (email && !emailPattern.test(email)) {
-                alert("이메일에 공백이 없어야 합니다.");
+                alert("공백이 없어야 합니다.");
                 return;
             }
 
-            fetch('http://localhost:8080/register', {
+            console.log(JSON.stringify({ account, password, name, nickname, email }));
+            fetch('/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userId, password, email }),
+                body: JSON.stringify({ account, password, name, nickname, email })
             })
                 .then(response => response.json())
                 .then(data => {

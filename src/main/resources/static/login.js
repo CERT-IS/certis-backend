@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        const username = document.getElementById('username').value.trim();
+        const account = document.getElementById('account').value.trim();
         const password = document.getElementById('password').value.trim();
 
-        if (!username || !password) {
+        if (!account || !password) {
             alert('아이디와 비밀번호를 입력하세요.');
             return;
         }
@@ -19,12 +19,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     'Content-Type': 'application/json',
                 },
                 credentials: 'include',
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ account, password }),
             });
 
             const data = await response.json();
 
             if (response.ok) {
+                console.log("cookie: "+document.cookie);
                 alert('로그인 성공: ' + data.message);
                 window.location.href = '/';
             } else {

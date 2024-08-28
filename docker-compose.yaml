@@ -30,9 +30,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/certis-service?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=mysqluser
       - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
-      - TOKEN_SECRET_KEY=EHA
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - TOKEN_SECRET_KEY=EHAfwfwoefjaoijdsoivpsjfpweijfpawjgpdsjbpdsjf[jwepifjepijfwepjfepijfpiwjspi
       - TOKEN_ACCESS_TOKEN_PLUS_HOUR=1
       - TOKEN_REFRESH_TOKEN_PLUS_HOUR=24
 

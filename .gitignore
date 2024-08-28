@@ -224,3 +224,6 @@ db/data/server-key.pem
 db/data/sys/sys_config.ibd
 db/data/undo_001
 db/data/undo_002
+db/data/\#innodb_redo/\#ib_redo12
+db/data/\#innodb_redo/\#ib_redo42_tmp
+db/data/\#innodb_redo/\#ib_redo43_tmp

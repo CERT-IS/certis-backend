@@ -77,7 +77,7 @@ public class PostController {
             @Valid
             @PathVariable("boardType") String boardType,
             @RequestPart("postDto") PostDto postDto,     //@ResponseBody, @RequestBody의 차이
-            @RequestPart("files") List<MultipartFile> files, //// @RequestPart: MultipartFile을 받음
+            @RequestPart(value = "files",required = false) List<MultipartFile> files, //// @RequestPart: MultipartFile을 받음
             @RequestHeader("authorization-token") String accesstoken//@RequestHeader를 통해 헤더에 있는 토큰 값을 받아옴
             ) throws Exception {
         // 원래 로그인을 하면, User 정보는 세션을 통해서 구하고 주면 되지만,
@@ -123,7 +123,7 @@ public class PostController {
     public Response edit(
             @PathVariable("boardType") String boardType,
             @PathVariable("id") Long id,
-            @RequestPart("files") List<MultipartFile> files,
+            @RequestPart(value = "files",required = false) List<MultipartFile> files,
             @RequestPart("postDto") PostDto postDto,
             @RequestHeader("authorization-token") String accesstoken
     ) throws IOException {

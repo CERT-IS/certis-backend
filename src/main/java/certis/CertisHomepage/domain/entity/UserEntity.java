@@ -62,7 +62,7 @@ public class UserEntity {
    private List<PostEntity> posts = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "project_id", nullable = false)
+    @JoinColumn(name = "project_id", nullable = true)
     private ProjectEntity project;
 
 
