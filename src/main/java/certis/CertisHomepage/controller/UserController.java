@@ -2,7 +2,8 @@ package certis.CertisHomepage.controller;
 
 import certis.CertisHomepage.domain.token.TokenBusiness;
 import certis.CertisHomepage.domain.token.controller.model.TokenResponse;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
+
 import certis.CertisHomepage.service.UserService;
 import certis.CertisHomepage.domain.dto.user.UserLoginRequest;
 import certis.CertisHomepage.domain.dto.user.UserRegisterRequest;
@@ -114,7 +115,6 @@ public class UserController {
         log.info("refresh-token쿠키 제거.");
         return ResponseEntity.ok().build();
     }
-
 
 
 }

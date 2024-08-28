@@ -54,4 +54,6 @@ public class EventEntity {
     public void setModifiedAt(LocalDateTime time){
         this.modifiedAt = time;
     }
+
 }
+

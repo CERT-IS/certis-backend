@@ -8,7 +8,7 @@ import certis.CertisHomepage.domain.entity.PostEntity;
 import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
 import certis.CertisHomepage.repository.post.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
 import certis.CertisHomepage.repository.post.SearchCr;
@@ -89,7 +89,8 @@ public class PostController {
             @RequestPart("postDto") PostDto postDto,     //@ResponseBody, @RequestBody의 차이
             @RequestPart(value = "files", required = false) List<MultipartFile> files, //// @RequestPart: MultipartFile을 받음
             @RequestHeader("authorization-token") String accesstoken//@RequestHeader를 통해 헤더에 있는 토큰 값을 받아옴
-    ) throws Exception {
+            ) throws Exception {
+
         // 원래 로그인을 하면, User 정보는 세션을 통해서 구하고 주면 되지만,
         // 지금은 JWT 로그인은 생략하고, 임의로 findById 로 유저 정보를 넣어줌.
 

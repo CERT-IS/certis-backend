@@ -10,4 +10,5 @@ public interface PostRepository extends JpaRepository<PostEntity, Long>, PostRep
 
     Page<PostEntity> findByBoardType(BoardType boardType, Pageable pageable); //querydsl로 대체
 
+
 }

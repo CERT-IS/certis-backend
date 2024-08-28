@@ -27,4 +27,5 @@ public class RefreshTokenEntity {
 
     private LocalDateTime expiredAt;
 
+
 }

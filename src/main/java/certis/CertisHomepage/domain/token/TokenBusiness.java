@@ -11,11 +11,14 @@ import certis.CertisHomepage.domain.token.service.TokenService;
 import certis.CertisHomepage.common.exception.ApiException;
 import certis.CertisHomepage.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class TokenBusiness {
@@ -31,25 +34,33 @@ public class TokenBusiness {
     * 3.    converter -> token response로 변경
     * */
 
+    @Transactional
     public TokenResponse issueToken(UserEntity userEntity){
 
         return Optional.ofNullable(userEntity)
-                .map(ue -> {
-                    return ue.getId();
-                })
+                .map(UserEntity::getId)
                 .map(userId -> {
 
                     var accessToken = tokenService.issueAccessToken(userId);
                     var refreshToken = tokenService.issueRefreshToken(userId);
 
                     //사용자가 가지고있던 기존 리프레쉬 토큰 삭제
-                    refreshTokenRepository.deleteByUser(userEntity);
-                    RefreshTokenEntity refreshTokenEntity = new RefreshTokenEntity();
-                    refreshTokenEntity.setToken(refreshTokenEntity.getToken());
-                    refreshTokenEntity.setExpiredAt(refreshTokenEntity.getExpiredAt());
-                    refreshTokenEntity.setUser(userEntity);
+                    refreshTokenRepository.findByUser(userEntity)
+                                    .ifPresentOrElse(
+                                            existingToken -> { //존재하는 토큰은
+                                                existingToken.setToken(refreshToken.getToken());
+                                                existingToken.setExpiredAt(refreshToken.getExpiredAt());
+                                                refreshTokenRepository.save(existingToken);
+                                            },
+                                            () -> {  // 없다면
+                                                RefreshTokenEntity refreshTokenEntity = RefreshTokenEntity.builder()
+                                                        .token(refreshToken.getToken())
+                                                        .expiredAt(refreshToken.getExpiredAt())
+                                                        .user(userEntity).build();
+                                                refreshTokenRepository.save(refreshTokenEntity);
+                                            }
+                                    );
 
-                    refreshTokenRepository.save(refreshTokenEntity);
 
                     return tokenConverter.toResponse(accessToken, refreshToken);
 

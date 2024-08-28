@@ -38,6 +38,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/photo/**")
                 .addResourceLocations("file:photo/");
+        registry.addResourceHandler("/document/**")
+                .addResourceLocations("file:document/");
     }
 
     //어떤것들을 검증하지않겠다라는걸 추가해줘야하는데.. 일일히 추가해야하므로 많아질수잇음
@@ -48,14 +50,13 @@ public class WebConfig implements WebMvcConfigurer {
 
         /*registry.addInterceptor(authorizationInterceptor)
                 .excludePathPatterns(DEFAULT_EXCLUDE)
-                .excludePathPatterns(SWAGGER);
+                .excludePathPatterns(SWAGGER);*/
 
         //공지사항 게시판 - 관리자만 작성 가능하게
         registry.addInterceptor(notiInterceptor)
-                .addPathPatterns("/noti/*")
-                .excludePathPatterns("/noti/{id}")
-                .excludePathPatterns("/noti/all");
-*/
+                .addPathPatterns("/NOTI/write", "/noti/write", "/project/write", "/PROJECT/write")
+                .addPathPatterns("/users/**") //전체 회원보기나 유저 조회도 일단 관리자만 볼 수있게
+                .addPathPatterns("/event/delete/{id}","/event/write", "/event/{id}");
 
     }
 }
