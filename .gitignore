@@ -230,3 +230,5 @@ db/data/undo_002
 db/data/\#innodb_redo/\#ib_redo12
 db/data/\#innodb_redo/\#ib_redo42_tmp
 db/data/\#innodb_redo/\#ib_redo43_tmp
+db/data/\#innodb_redo/\#ib_redo44_tmp
+db/data/\#innodb_redo/\#ib_redo13

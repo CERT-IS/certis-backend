@@ -34,6 +34,7 @@ services:
       - TOKEN_SECRET_KEY=EHAfwfwoefjaoijdsoivpsjfpweijfpawjgpdsjbpdsjf[jwepifjepijfwepjfepijfpiwjspi
       - TOKEN_ACCESS_TOKEN_PLUS_HOUR=1
       - TOKEN_REFRESH_TOKEN_PLUS_HOUR=24
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
 networks:
   certis_network:

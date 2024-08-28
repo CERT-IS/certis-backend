@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function loadBoardData() {
     const boardType = 'noti';
-    const url = `/${boardType}/all`;
+    const url = `board/${boardType}/all`;
 
     fetch(url)
         .then(response => {
@@ -36,7 +36,7 @@ function loadBoardData() {
                 </td>
                 `;
                 row.addEventListener('click', function() {
-                    window.location.href = `notice_data.html?id=${item.id}`;
+                    window.location.href = `project_data.html?id=${item.id}`;
                 });
                 tableBody.appendChild(row);
             });

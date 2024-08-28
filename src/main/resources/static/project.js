@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function loadBoardData() {
   const boardType = 'project';
-  const url = `/${boardType}/all`;
+  const url = `board/${boardType}/all`;
 
   fetch(url)
       .then(response => {

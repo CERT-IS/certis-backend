@@ -15,7 +15,7 @@ public class CertisHomepageApplication {
 
 	@GetMapping
 	public String index(){
-		return "introduce.html";
+		return "introduce";
 	}
 
 	@GetMapping("/login")

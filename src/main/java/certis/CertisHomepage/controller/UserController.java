@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/user")
 @RestController
 public class UserController {
 
@@ -34,7 +35,7 @@ public class UserController {
     //swagger 에서 설명부분을 나타내는 어노테이션.
     @Operation(summary = "전체 회원 보기", description = "전체 회원을 조회한다.")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/users")
+    @GetMapping("/")
     public Response<?> findAll() {
 
         return new Response<>("ture", "조회 성공", userService.findAll());
@@ -43,7 +44,7 @@ public class UserController {
 
     @Operation(summary = "유저 조회")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public Response<?> findUser(@PathVariable("id") Long id){
         return new Response<>("true", "조회 성공", userService.findUser(id));
     }

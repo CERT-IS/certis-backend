@@ -33,6 +33,7 @@ import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/board")
 @RestController
 public class PostController {
 
@@ -70,7 +71,7 @@ public class PostController {
 
     }
 
-    @GetMapping("/{boardType}")
+    @GetMapping("/search/{boardType}")
     public PageApi<List<PostDto>> searchPosts(
             @PathVariable BoardType boardType,
             @RequestParam(value = "word", required = false)String word,

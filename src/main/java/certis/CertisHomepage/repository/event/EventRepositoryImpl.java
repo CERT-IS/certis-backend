@@ -2,7 +2,7 @@ package certis.CertisHomepage.repository.event;
 
 
 import certis.CertisHomepage.domain.entity.EventEntity;
-import certis.CertisHomepage.domain.QEventEntity;
+import certis.CertisHomepage.domain.entity.QEventEntity;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

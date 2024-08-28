@@ -37,7 +37,7 @@ function addPost() {
       });
     }
 
-    fetch(`/${boardType}/write`, {
+    fetch(`board/${boardType}/write`, {
       method: 'POST',
       headers: {
         'authorization-token': accesstoken

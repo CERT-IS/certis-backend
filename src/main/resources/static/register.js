@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             console.log(JSON.stringify({ account, password, name, nickname, email }));
-            fetch('/register', {
+            fetch('/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
