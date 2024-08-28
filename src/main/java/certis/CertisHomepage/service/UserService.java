@@ -1,13 +1,15 @@
 package certis.CertisHomepage.service;
 
 import certis.CertisHomepage.common.error.UserErrorCode;
+import certis.CertisHomepage.converter.UserConverter;
 import certis.CertisHomepage.domain.RoleType;
 import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
 import certis.CertisHomepage.domain.token.controller.model.TokenResponse;
-import certis.CertisHomepage.common.exception.ApiException;
+import certis.CertisHomepage.exception.ApiException;
 import certis.CertisHomepage.repository.UserRepository;
+import certis.CertisHomepage.domain.dto.user.UserDto;
 import certis.CertisHomepage.domain.dto.user.UserLoginRequest;
 import certis.CertisHomepage.domain.dto.user.UserRegisterRequest;
 import certis.CertisHomepage.domain.dto.user.UserResponse;
@@ -19,21 +21,24 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserConverter userConverter;
+
     private final TokenBusiness tokenBusiness;
 
 
     /*
-    *   1.request -> entity
-    *   2.entity -> save
-    *   3. entity -> response
-    *   4. return response
-    * */
+     *   1.request -> entity
+     *   2.entity -> save
+     *   3. entity -> response
+     *   4. return response
+     * */
     public UserResponse register(UserRegisterRequest userRegisterRequest){
 
         //userId가 db에있는지 중복 체크
@@ -65,11 +70,12 @@ public class UserService {
     }
 
     /*
-    *   1.account, password 를 가지고 사용자 체크
-    *   2. user Entity 로그인 확인
-    *   3.token 생성
-    *   4.token response
-    * */
+     *   1.account, password 를 가지고 사용자 체크
+     *   2. user Entity 로그인 확인
+     *   3.token 생성
+     *   4.token response
+     * */
+    @Transactional
     public TokenResponse login(UserLoginRequest request){
         var entity = getUserWithThrow(request.getAccount(), request.getPassword());
 
@@ -96,15 +102,20 @@ public class UserService {
         );
     }
 
-    public List<UserEntity> findAll(){
-        return  userRepository.findAll();
+    public List<UserDto> findAll(){
+        return  userRepository.findAll().stream()
+                .map(UserDto::convertToDto)
+                .collect(Collectors.toList());
+
     }
 
 
-    public UserEntity findUser(Long id){
-        return userRepository.findById(id).orElseThrow(() -> {
+    public UserDto findUser(Long id){
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("User Id를 찾을 수없습니다.");
         });
+
+        return UserDto.convertToDto(user);
     }
 
     public void checkAccountDuplicate(String account){

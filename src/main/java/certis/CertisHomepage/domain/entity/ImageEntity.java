@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity(name = "image")
 public class ImageEntity {
+    //ImageEntity라고 이름은 지었지만 그냥 모든 유형의 파일을 다 받을생각임.
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

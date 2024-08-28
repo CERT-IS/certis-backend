@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response<?> illegalArgumentExceptionAdvice(IllegalArgumentException e){
-        log.error("[error] "+e.getMessage());
+        log.error("",e.getMessage());
 
         return new Response("fail", e.getMessage(), null);
     }

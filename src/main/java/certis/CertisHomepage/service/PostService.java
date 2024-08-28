@@ -1,15 +1,15 @@
 package certis.CertisHomepage.service;
 
 import certis.CertisHomepage.common.FileHandler;
-import certis.CertisHomepage.domain.Pagination;
 import certis.CertisHomepage.common.api.PageApi;
 import certis.CertisHomepage.domain.*;
 import certis.CertisHomepage.domain.entity.ImageEntity;
 import certis.CertisHomepage.domain.entity.PostEntity;
 import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.repository.ImageRepository;
-import certis.CertisHomepage.repository.PostRepository;
+import certis.CertisHomepage.repository.post.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
+import certis.CertisHomepage.repository.post.SearchCr;
 import certis.CertisHomepage.domain.dto.post.PostDto;
 import certis.CertisHomepage.domain.dto.post.GetPostResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -42,35 +43,11 @@ public class PostService {
     //@Transactional(readOnly = true)
     public PageApi<List<PostDto>> getPosts(Pageable pageable, BoardType boardType){
 
-        //다들고 와버리면 데이터가 많을수록 올래걸릴거임. -> querydsl
-        var list = postRepository.findByBoardType(boardType, pageable); //이렇게만 해줘도 postEntity를 findAll해서 찾아오고 페이징과 정렬을 한 상태인것임!
-
-        //stream으로 list에서 뽑아온 entity받아서 map으로 postDto::toDto메소드사용해서 List로
-        List<PostDto> postDtos = list.stream()
-                .map(PostDto::toDto)
-                .collect(toList());
-
-                var pagination = Pagination.builder()
-                .page(list.getNumber())
-                .size(list.getSize())
-                .currentElements(list.getNumberOfElements())
-                .totalElements(list.getTotalElements())
-                .totalPage(list.getTotalPages())
-                .build();
-
-
-
-        var response = PageApi.<List<PostDto>>builder()
-                .body(postDtos)
-                .pagination(pagination)
-                .build()
-                ;
-
-        return response;
+        return postRepository.getPosts(pageable, boardType);
     }
 
     //개별 게시물 조회
-    @Transactional(readOnly = true)
+    @Transactional
     public GetPostResponse getPost(Long id){
 
         //지금 http://localhost:8080/photo/photo/20240727/860469845873500.jpg 이런 형식으로 내려주는데
@@ -81,9 +58,8 @@ public class PostService {
         });
         log.info("게시물을 찾았습니다.");
         post.increaseViewCnt(); //게시물 조회수 증가.
+        postRepository.save(post);
 
-        // Hibernate의 initialize 메서드를 사용하여 UserEntity 초기화
-        //Hibernate.initialize(post.getUser());
 
         Long userId = post.getUser().getId();
         UserEntity user = userRepository.findByIdAndStatus(userId, UserStatus.REGISTERED);
@@ -113,23 +89,28 @@ public class PostService {
         return "/" + storedImageUrl.replace("\\","/");
     }
 
+    public PageApi<List<PostDto>> searchPosts(Pageable pageable, BoardType boardType, SearchCr criteria, String word){
+        return postRepository.searchPosts(pageable,boardType,criteria,word);
+    }
+
 
     //게시물 작성
     @Transactional
-    public PostDto write(PostDto postDto, UserEntity userEntity, List<MultipartFile> files) throws IOException {
+    public PostDto write(BoardType type, PostDto postDto, UserEntity userEntity, List<MultipartFile> files) throws IOException {
         log.info("userEntity is: {}", userEntity);
+        if(files == null){
+            files = new ArrayList<>();
+        }
         List<ImageEntity> imageList = fileHandler.parseFileInfo(files);
 
         PostEntity post = PostEntity.builder()
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
                 .view(0L)
-                .boardType(postDto.getBoardType())
+                .boardType(type)
                 .registeredAt(LocalDateTime.now())
                 .user(userEntity)
                 .build();
-
-        //userEntity.addPost(post); // Bidirectional relationship 설정
 
         if(!imageList.isEmpty()){
             for (ImageEntity image : imageList){
@@ -149,12 +130,12 @@ public class PostService {
 
     //게시물 수정
     @Transactional
-    public PostDto update(Long id, PostDto postDto, List<MultipartFile> files) throws IOException {
+    public PostDto update(Long id, BoardType type, PostDto postDto, List<MultipartFile> files) throws IOException {
         PostEntity post = postRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("해당 게시물 id 가 없습니다");
         });
 
-        post.setTitle(postDto.getContent());
+        post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setModifiedAt(LocalDateTime.now());
 

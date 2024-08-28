@@ -8,9 +8,10 @@ import certis.CertisHomepage.domain.entity.PostEntity;
 import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
-import certis.CertisHomepage.common.exception.ApiException;
-import certis.CertisHomepage.repository.PostRepository;
+import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.repository.post.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
+import certis.CertisHomepage.repository.post.SearchCr;
 import certis.CertisHomepage.service.PostService;
 import certis.CertisHomepage.domain.dto.post.PostDto;
 import certis.CertisHomepage.domain.dto.Response;
@@ -19,9 +20,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,9 +44,9 @@ public class PostController {
     //게시판별 게시글 전체 조회
     @GetMapping("/{boardType}/all")
     public PageApi<List<PostDto>> getPosts(
-        @PathVariable("boardType") String boardType,
-        @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) //Default가 Direction.ASC
-        Pageable pageable
+            @PathVariable("boardType") String boardType,
+            @PageableDefault(page = 0, size = 10) //Default가 Direction.ASC
+            Pageable pageable
     ) {
         return postService.getPosts(pageable, BoardType.valueOf(boardType.toUpperCase()));
     }
@@ -69,17 +70,26 @@ public class PostController {
 
     }
 
+    @GetMapping("/{boardType}")
+    public PageApi<List<PostDto>> searchPosts(
+            @PathVariable BoardType boardType,
+            @RequestParam(value = "word", required = false)String word,
+            @RequestParam(value = "criteria", required = false, defaultValue = "TITLE")SearchCr criteria,
+            @PageableDefault(page = 0, size = 10)Pageable pageable
+    ){
+        return postService.searchPosts(pageable,boardType,criteria,word);
+    }
 
     //게시글 작성
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{boardType}/write")
+    @PostMapping(value = "/{boardType}/write", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public Response write(
             @Valid
             @PathVariable("boardType") String boardType,
             @RequestPart("postDto") PostDto postDto,     //@ResponseBody, @RequestBody의 차이
-            @RequestPart(value = "files",required = false) List<MultipartFile> files, //// @RequestPart: MultipartFile을 받음
+            @RequestPart(value = "files", required = false) List<MultipartFile> files, //// @RequestPart: MultipartFile을 받음
             @RequestHeader("authorization-token") String accesstoken//@RequestHeader를 통해 헤더에 있는 토큰 값을 받아옴
-            ) throws Exception {
+    ) throws Exception {
         // 원래 로그인을 하면, User 정보는 세션을 통해서 구하고 주면 되지만,
         // 지금은 JWT 로그인은 생략하고, 임의로 findById 로 유저 정보를 넣어줌.
 
@@ -102,16 +112,15 @@ public class PostController {
             throw new ApiException(UserErrorCode.USER_NOT_FOUND);
         }
 
+        String bt = boardType.toUpperCase();
+        BoardType type;
         //NOTI도 아니고 PROJECT도 아니면 오류 발생
         try {
-            BoardType type = BoardType.valueOf(boardType.toUpperCase());
-            postDto.setBoardType(type);
+            type = BoardType.valueOf(bt);
         }catch (IllegalArgumentException e){
             throw new ApiException(PostErrorCode.POST_NOT_EXIST);
         }
-        postDto.setBoardType(BoardType.valueOf(boardType));
-        return new Response("성공", " 게시물 작성",postService.write(postDto, user, files));
-
+        return new Response("성공", " 게시물 작성",postService.write(type, postDto, user, files));
 
 
     }
@@ -123,13 +132,14 @@ public class PostController {
     public Response edit(
             @PathVariable("boardType") String boardType,
             @PathVariable("id") Long id,
-            @RequestPart(value = "files",required = false) List<MultipartFile> files,
+            @RequestPart(value = "files", required = false) List<MultipartFile> files,
             @RequestPart("postDto") PostDto postDto,
             @RequestHeader("authorization-token") String accesstoken
     ) throws IOException {
 
 
         Optional<PostEntity> post = postRepository.findById(id);
+
         if (post.isEmpty() || post.get().getBoardType() != BoardType.valueOf(boardType.toUpperCase())) {
             throw new ApiException(PostErrorCode.POST_NOT_EXIST);
         }
@@ -137,7 +147,7 @@ public class PostController {
 
         //쓴사람이 아니라면 수정도 불가
         if(Objects.equals(post.get().getUser().getId(), tokenBusiness.validationAccessToken(accesstoken))) {
-            return new Response("성공", "글 수정 성공", postService.update(id, postDto, files));
+            return new Response("성공", "글 수정 성공", postService.update(id, post.get().getBoardType(), postDto, files));
         }else{
             return new Response("실패", "글 수정 실패", new ApiException(UserErrorCode.USER_NOT_CORRET));
         }
@@ -166,8 +176,8 @@ public class PostController {
         }else{
             return new Response("실패", "글 삭제 실패", new ApiException(UserErrorCode.USER_NOT_CORRET));
         }
-
-
     }
+
+
 
 }

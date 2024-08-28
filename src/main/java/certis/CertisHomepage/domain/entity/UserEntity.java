@@ -43,27 +43,29 @@ public class UserEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedAt;
 
-   private Long exp;
+    private Long exp;
 
-   private Long level;
+    private Long level;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private RefreshTokenEntity refreshToken;
 
-   @Column(columnDefinition = "ENUM('ADMIN', 'USER')")
-   @Enumerated(EnumType.STRING) //enum에있는 이름을 매핑할때 쓰인다.
-   private RoleType roleType;
+    @Column(columnDefinition = "ENUM('ADMIN', 'USER')")
+    @Enumerated(EnumType.STRING) //enum에있는 이름을 매핑할때 쓰인다.
+    private RoleType roleType;
 
 
     @Column(columnDefinition = "ENUM('REGISTERED', 'UNREGISTERED')")
-   @Enumerated(EnumType.STRING)
-   private UserStatus status;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
-   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-   @Builder.Default
-   private List<PostEntity> posts = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<PostEntity> posts = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "project_id", nullable = true)
-    private ProjectEntity project;
+//    @ManyToOne
+//    @JoinColumn(name = "project_id")
+//    private ProjectEntity project;
 
 
     public void addPost(PostEntity post){
@@ -72,4 +74,3 @@ public class UserEntity {
     }
 
 }
-

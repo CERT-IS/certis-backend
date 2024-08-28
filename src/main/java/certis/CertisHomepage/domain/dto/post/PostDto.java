@@ -1,7 +1,6 @@
 package certis.CertisHomepage.domain.dto.post;
 
 
-import certis.CertisHomepage.domain.BoardType;
 import certis.CertisHomepage.domain.entity.PostEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,6 @@ public class PostDto {
 
     private LocalDateTime registeredAt;
 
-    private BoardType boardType;
 
     private Long userId;
 
@@ -34,11 +32,9 @@ public class PostDto {
 
     private LocalDateTime modifiedAt;
 
-    //private List<MultipartFile> files;
-
 
 
     public static PostDto toDto(PostEntity post){
-        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getRegisteredAt(), post.getBoardType(),post.getUser().getId(),post.getView(),post.getModifiedAt());
+        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getRegisteredAt(), post.getUser().getId(),post.getView(),post.getModifiedAt());
     }
 }

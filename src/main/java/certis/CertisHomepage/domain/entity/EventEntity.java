@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -20,22 +21,37 @@ public class EventEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    //date를 그냥 문자열로 받을껀가?
-    private String date;
-
     private String eventName;
-
-    private String host;
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
 
     private LocalDateTime postedAt;
 
     private LocalDateTime modifiedAt;
 
-    private Long userId;
 
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setModifiedAt(LocalDateTime time){
+        this.modifiedAt = time;
+    }
 }

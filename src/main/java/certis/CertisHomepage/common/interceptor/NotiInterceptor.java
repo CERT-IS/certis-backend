@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+
 @RequiredArgsConstructor
 @Component
 public class NotiInterceptor implements HandlerInterceptor {
@@ -31,7 +32,6 @@ public class NotiInterceptor implements HandlerInterceptor {
             return false;
         }else{
             //로그인 되어있을때 관리자인지 일반유저인지 확인해서 관리자는 글작성할수있게
-            //TODO 일단 true리턴
             //accesstoken을 받아서 validationToken메소드로 검증하고 id받아옴
             var loginid = tokenBusiness.validationAccessToken(accessToken);
             UserEntity user = userRepository.findByIdAndStatus(loginid, UserStatus.REGISTERED);
@@ -41,9 +41,7 @@ public class NotiInterceptor implements HandlerInterceptor {
                 return true;
             }else {
                 //일반 유저면
-                request.setAttribute("message", "관리자만 접근할 수있습니다.");
-                request.setAttribute("path", "/noti"); // 그냥 보드 페이지로 돌아가게
-                request.getRequestDispatcher("/noti").forward(request, response);//공지사항 페이지(/noti)로 포워딩하여
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "관리자만 접근할 수 있습니다.");
                 return false;
             }
 
