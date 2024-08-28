@@ -3,7 +3,7 @@ package certis.CertisHomepage.service;
 import certis.CertisHomepage.common.error.ErrorCode;
 import certis.CertisHomepage.common.error.PostErrorCode;
 import certis.CertisHomepage.domain.entity.EventEntity;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
 import certis.CertisHomepage.repository.event.EventRepository;
 import certis.CertisHomepage.domain.dto.event.EventDto;
 import lombok.RequiredArgsConstructor;

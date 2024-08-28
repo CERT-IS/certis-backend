@@ -8,7 +8,7 @@ import certis.CertisHomepage.domain.token.controller.model.TokenResponse;
 import certis.CertisHomepage.domain.token.converter.TokenConverter;
 import certis.CertisHomepage.domain.token.model.TokenDto;
 import certis.CertisHomepage.domain.token.service.TokenService;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
 import certis.CertisHomepage.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

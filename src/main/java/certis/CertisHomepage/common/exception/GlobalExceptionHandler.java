@@ -1,4 +1,4 @@
-package certis.CertisHomepage.exception;
+package certis.CertisHomepage.common.exception;
 
 import certis.CertisHomepage.domain.dto.Response;
 import lombok.extern.slf4j.Slf4j;

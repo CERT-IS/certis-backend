@@ -3,7 +3,7 @@ package certis.CertisHomepage.common.interceptor;
 import certis.CertisHomepage.common.error.ErrorCode;
 import certis.CertisHomepage.common.error.TokenErrorCode;
 import certis.CertisHomepage.domain.token.TokenBusiness;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

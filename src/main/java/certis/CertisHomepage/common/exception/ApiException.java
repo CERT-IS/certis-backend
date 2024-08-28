@@ -1,4 +1,4 @@
-package certis.CertisHomepage.exception;
+package certis.CertisHomepage.common.exception;
 
 
 import certis.CertisHomepage.common.error.ErrorCodeIfs;

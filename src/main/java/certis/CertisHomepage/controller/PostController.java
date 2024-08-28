@@ -8,7 +8,7 @@ import certis.CertisHomepage.domain.entity.PostEntity;
 import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
-import certis.CertisHomepage.exception.ApiException;
+import certis.CertisHomepage.common.exception.ApiException;
 import certis.CertisHomepage.repository.post.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
 import certis.CertisHomepage.repository.post.SearchCr;
