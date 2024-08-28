@@ -1,11 +1,11 @@
-package certis.CertisHomepage.web.controller;
+package certis.CertisHomepage.controller;
 
 import certis.CertisHomepage.common.api.PageApi;
 import certis.CertisHomepage.common.error.PostErrorCode;
 import certis.CertisHomepage.common.error.UserErrorCode;
 import certis.CertisHomepage.domain.BoardType;
-import certis.CertisHomepage.domain.PostEntity;
-import certis.CertisHomepage.domain.UserEntity;
+import certis.CertisHomepage.domain.entity.PostEntity;
+import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
 import certis.CertisHomepage.exception.ApiException;
@@ -13,8 +13,8 @@ import certis.CertisHomepage.repository.post.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
 import certis.CertisHomepage.repository.post.SearchCr;
 import certis.CertisHomepage.service.PostService;
-import certis.CertisHomepage.web.dto.post.PostDto;
-import certis.CertisHomepage.web.dto.Response;
+import certis.CertisHomepage.domain.dto.post.PostDto;
+import certis.CertisHomepage.domain.dto.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,7 @@
-package certis.CertisHomepage.domain;
+package certis.CertisHomepage.domain.entity;
 
+import certis.CertisHomepage.domain.RoleType;
+import certis.CertisHomepage.domain.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,7 +9,6 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Builder

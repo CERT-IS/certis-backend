@@ -1,6 +1,6 @@
-package certis.CertisHomepage.web.dto.event;
+package certis.CertisHomepage.domain.dto.event;
 
-import certis.CertisHomepage.domain.EventEntity;
+import certis.CertisHomepage.domain.entity.EventEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

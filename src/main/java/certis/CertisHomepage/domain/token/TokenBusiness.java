@@ -2,8 +2,8 @@ package certis.CertisHomepage.domain.token;
 
 import certis.CertisHomepage.common.error.ErrorCode;
 import certis.CertisHomepage.common.error.TokenErrorCode;
-import certis.CertisHomepage.domain.RefreshTokenEntity;
-import certis.CertisHomepage.domain.UserEntity;
+import certis.CertisHomepage.domain.entity.RefreshTokenEntity;
+import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.token.controller.model.TokenResponse;
 import certis.CertisHomepage.domain.token.converter.TokenConverter;
 import certis.CertisHomepage.domain.token.model.TokenDto;

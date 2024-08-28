@@ -1,4 +1,4 @@
-package certis.CertisHomepage.domain;
+package certis.CertisHomepage.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

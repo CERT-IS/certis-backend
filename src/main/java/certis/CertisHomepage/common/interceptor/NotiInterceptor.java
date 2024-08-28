@@ -1,10 +1,9 @@
-package certis.CertisHomepage.interceptor;
+package certis.CertisHomepage.common.interceptor;
 
 import certis.CertisHomepage.domain.RoleType;
-import certis.CertisHomepage.domain.UserEntity;
+import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import certis.CertisHomepage.domain.token.TokenBusiness;
-import certis.CertisHomepage.domain.token.service.TokenService;
 import certis.CertisHomepage.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

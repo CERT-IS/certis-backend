@@ -1,7 +1,7 @@
 package certis.CertisHomepage.repository.event;
 
 
-import certis.CertisHomepage.domain.EventEntity;
+import certis.CertisHomepage.domain.entity.EventEntity;
 import certis.CertisHomepage.domain.QEventEntity;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

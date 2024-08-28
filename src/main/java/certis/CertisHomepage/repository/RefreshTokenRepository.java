@@ -1,7 +1,7 @@
 package certis.CertisHomepage.repository;
 
-import certis.CertisHomepage.domain.RefreshTokenEntity;
-import certis.CertisHomepage.domain.UserEntity;
+import certis.CertisHomepage.domain.entity.RefreshTokenEntity;
+import certis.CertisHomepage.domain.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,9 +1,8 @@
 package certis.CertisHomepage.repository.event;
 
-import certis.CertisHomepage.domain.EventEntity;
+import certis.CertisHomepage.domain.entity.EventEntity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventRepositoryCustom {

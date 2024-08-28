@@ -1,8 +1,7 @@
-package certis.CertisHomepage.web.dto.user;
+package certis.CertisHomepage.domain.dto.user;
 
-import certis.CertisHomepage.domain.UserEntity;
-import certis.CertisHomepage.service.UserService;
-import certis.CertisHomepage.web.dto.post.PostDto;
+import certis.CertisHomepage.domain.entity.UserEntity;
+import certis.CertisHomepage.domain.dto.post.PostDto;
 import lombok.Builder;
 import lombok.Getter;
 

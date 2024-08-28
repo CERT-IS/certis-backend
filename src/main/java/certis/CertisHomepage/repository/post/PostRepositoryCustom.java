@@ -2,7 +2,7 @@ package certis.CertisHomepage.repository.post;
 
 import certis.CertisHomepage.common.api.PageApi;
 import certis.CertisHomepage.domain.BoardType;
-import certis.CertisHomepage.web.dto.post.PostDto;
+import certis.CertisHomepage.domain.dto.post.PostDto;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package certis.CertisHomepage.converter;
 
-import certis.CertisHomepage.domain.UserEntity;
-import certis.CertisHomepage.web.dto.user.UserResponse;
+import certis.CertisHomepage.domain.entity.UserEntity;
+import certis.CertisHomepage.domain.dto.user.UserResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package certis.CertisHomepage.repository;
 
-import certis.CertisHomepage.domain.UserEntity;
+import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.domain.UserStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 

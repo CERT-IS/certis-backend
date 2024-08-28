@@ -1,4 +1,4 @@
-package certis.CertisHomepage.web.dto.user;
+package certis.CertisHomepage.domain.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

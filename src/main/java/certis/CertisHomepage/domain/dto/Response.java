@@ -1,4 +1,4 @@
-package certis.CertisHomepage.web.dto;
+package certis.CertisHomepage.domain.dto;
 
 import certis.CertisHomepage.common.error.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;

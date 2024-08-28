@@ -1,8 +1,8 @@
-package certis.CertisHomepage.web.controller;
+package certis.CertisHomepage.controller;
 
 import certis.CertisHomepage.service.EventService;
-import certis.CertisHomepage.web.dto.Response;
-import certis.CertisHomepage.web.dto.event.EventDto;
+import certis.CertisHomepage.domain.dto.Response;
+import certis.CertisHomepage.domain.dto.event.EventDto;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

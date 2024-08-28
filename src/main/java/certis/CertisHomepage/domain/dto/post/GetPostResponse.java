@@ -1,9 +1,7 @@
-package certis.CertisHomepage.web.dto.post;
+package certis.CertisHomepage.domain.dto.post;
 
 import certis.CertisHomepage.domain.BoardType;
-import certis.CertisHomepage.domain.PostEntity;
-import certis.CertisHomepage.domain.UserEntity;
-import jakarta.validation.constraints.NotNull;
+import certis.CertisHomepage.domain.entity.PostEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

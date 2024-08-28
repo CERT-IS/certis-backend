@@ -1,4 +1,4 @@
-package certis.CertisHomepage.interceptor;
+package certis.CertisHomepage.common.interceptor;
 
 import certis.CertisHomepage.common.error.ErrorCode;
 import certis.CertisHomepage.common.error.TokenErrorCode;

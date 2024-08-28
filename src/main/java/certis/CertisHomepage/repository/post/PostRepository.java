@@ -1,7 +1,7 @@
 package certis.CertisHomepage.repository.post;
 
 import certis.CertisHomepage.domain.BoardType;
-import certis.CertisHomepage.domain.PostEntity;
+import certis.CertisHomepage.domain.entity.PostEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Pageable;

@@ -1,13 +1,17 @@
 package certis.CertisHomepage.service;
 
+import certis.CertisHomepage.common.FileHandler;
 import certis.CertisHomepage.common.api.PageApi;
 import certis.CertisHomepage.domain.*;
+import certis.CertisHomepage.domain.entity.ImageEntity;
+import certis.CertisHomepage.domain.entity.PostEntity;
+import certis.CertisHomepage.domain.entity.UserEntity;
 import certis.CertisHomepage.repository.ImageRepository;
 import certis.CertisHomepage.repository.post.PostRepository;
 import certis.CertisHomepage.repository.UserRepository;
 import certis.CertisHomepage.repository.post.SearchCr;
-import certis.CertisHomepage.web.dto.post.PostDto;
-import certis.CertisHomepage.web.dto.post.GetPostResponse;
+import certis.CertisHomepage.domain.dto.post.PostDto;
+import certis.CertisHomepage.domain.dto.post.GetPostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
