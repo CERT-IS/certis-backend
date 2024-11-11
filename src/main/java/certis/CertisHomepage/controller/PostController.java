@@ -157,6 +157,25 @@ public class PostController {
 
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/{boardType}/update/{id}")
+    public Response getEdit(
+            @PathVariable("boardType") String boardType,
+            @PathVariable("id") Long id,
+            @RequestHeader("authorization-token") String accesstoken
+    ) {
+        //원래 있던 값 받아오기
+        //원래 값 반환해서 출력
+        Optional<PostEntity> post = postRepository.findById(id);
+
+
+        if(Objects.equals(post.get().getUser().getId(), tokenBusiness.validationAccessToken(accesstoken)) | true) {
+            return new Response("성공", "글 로드 성공", postService.getPost(id));
+        }else{
+            return new Response("실패", "글 로드 실패", new ApiException(UserErrorCode.USER_NOT_CORRET));
+        }
+    }
+
     //게시글 삭제
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{boardType}/delete/{id}")
