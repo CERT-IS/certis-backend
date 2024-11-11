@@ -19,6 +19,10 @@ tr:hover{
   cursor: pointer; /* 마우스 포인터 변경 */
 }
 
+td:active{
+  background-color: #eeeeee;
+}
+
 .form-container {
   margin-bottom: 20px;
 }
