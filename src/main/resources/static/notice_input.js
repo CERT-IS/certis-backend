@@ -5,18 +5,24 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 function addPost() {
   const title = document.getElementById('title').value;
   const content = document.getElementById('content').value;
   const filesInput = document.getElementById('files');
   const files = filesInput ? filesInput.files : [];
-  const accesstoken = localStorage.getItem('access-token');
-  const boardType = 'notice';
+  const accesstoken = getCookie('refresh-token');
+  const boardType = 'noti';
 
   if (title && content) {
     const postDto = {
-      제목: title,
-      내용: content
+      title: title,
+      content: content
     };
 
     const formData = new FormData();
@@ -28,7 +34,7 @@ function addPost() {
       });
     }
 
-    fetch(`/${boardType}/write`, {
+    fetch(`board/${boardType}/write`, {
       method: 'POST',
       headers: {
         'authorization-token': accesstoken

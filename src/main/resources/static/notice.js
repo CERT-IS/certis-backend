@@ -36,7 +36,7 @@ function loadBoardData() {
                 </td>
                 `;
                 row.addEventListener('click', function() {
-                    window.location.href = `project_data.html?id=${item.id}`;
+                    window.location.href = `notice_data.html?id=${item.id}`;
                 });
                 tableBody.appendChild(row);
             });

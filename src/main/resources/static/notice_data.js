@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function loadPostDetail(id) {
   const boardType = 'noti';
-  const url = `/${boardType}/${id}`;
+  const url = `board/${boardType}/${id}`;
 
   fetch(url)
       .then(response => {

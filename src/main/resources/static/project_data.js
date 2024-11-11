@@ -47,7 +47,7 @@ function loadPostDetail(id) {
 }
 
 function deletePost(id) {
-  const boardType = 'noti';
+  const boardType = 'project';
   const accesstoken = localStorage.getItem('access-token');
 
   if (confirm('정말로 이 글을 삭제하시겠습니까?')) {
