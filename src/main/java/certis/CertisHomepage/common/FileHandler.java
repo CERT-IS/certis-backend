@@ -19,7 +19,7 @@ public class FileHandler {
 
     public List<ImageEntity> parseFileInfo(List<MultipartFile> multipartFiles) throws IOException {
         List<ImageEntity> fileList = new ArrayList<>();
-        if(multipartFiles.isEmpty()){
+        if (multipartFiles == null || multipartFiles.isEmpty()) {
             log.info("파일이 비었음");
             return fileList;
         }

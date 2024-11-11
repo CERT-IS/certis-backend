@@ -11,9 +11,15 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 function loadPostDetail(id) {
   const boardType = 'noti';
-  const url = `board/${boardType}/${id}`;
+  const url = `/board/${boardType}/${id}`;
 
   fetch(url)
       .then(response => {
@@ -48,10 +54,10 @@ function loadPostDetail(id) {
 
 function deletePost(id) {
   const boardType = 'noti';
-  const accesstoken = localStorage.getItem('access-token');
+  const accesstoken = getCookie('refresh-token');
 
   if (confirm('정말로 이 글을 삭제하시겠습니까?')) {
-    fetch(`/${boardType}/delete/${id}`, {
+    fetch(`board/${boardType}/delete/${id}`, {
       method: 'DELETE',
       headers: {
         'authorization-token': accesstoken

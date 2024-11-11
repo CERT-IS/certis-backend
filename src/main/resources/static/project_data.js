@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 function loadPostDetail(id) {
     const boardType = 'project';
     const url = `board/${boardType}/${id}`;
@@ -48,10 +54,10 @@ function loadPostDetail(id) {
 
 function deletePost(id) {
   const boardType = 'project';
-  const accesstoken = localStorage.getItem('access-token');
+  const accesstoken = getCookie('refresh-token');
 
   if (confirm('정말로 이 글을 삭제하시겠습니까?')) {
-    fetch(`/${boardType}/delete/${id}`, {
+    fetch(`/board/${boardType}/delete/${id}`, {
       method: 'DELETE',
       headers: {
         'authorization-token': accesstoken
