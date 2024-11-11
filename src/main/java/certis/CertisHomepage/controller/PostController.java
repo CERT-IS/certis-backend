@@ -92,6 +92,12 @@ public class PostController {
             @RequestHeader("authorization-token") String accesstoken//@RequestHeader를 통해 헤더에 있는 토큰 값을 받아옴
             ) throws Exception {
 
+
+        System.out.println("Received boardType: " + boardType);
+        System.out.println("Received postDto: " + postDto);
+        System.out.println("Received files: " + (files != null ? files.size() : "null"));
+        System.out.println("Received accesstoken: " + accesstoken);
+
         // 원래 로그인을 하면, User 정보는 세션을 통해서 구하고 주면 되지만,
         // 지금은 JWT 로그인은 생략하고, 임의로 findById 로 유저 정보를 넣어줌.
 
@@ -123,8 +129,6 @@ public class PostController {
             throw new ApiException(PostErrorCode.POST_NOT_EXIST);
         }
         return new Response("성공", " 게시물 작성",postService.write(type, postDto, user, files));
-
-
     }
 
 

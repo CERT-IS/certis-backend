@@ -14,7 +14,7 @@ function getCookie(name) {
 function addPost() {
   const title = document.getElementById('title').value;
   const content = document.getElementById('content').value;
-  const filesInput = document.getElementById('files');
+  const filesInput = document.getElementById('file-upload');
 
   const files = filesInput ? filesInput.files : [];
   const accesstoken = getCookie('refresh-token');
@@ -26,8 +26,6 @@ function addPost() {
       content: content
     };
 
-    console.log("token : "+accesstoken);
-    console.log("cookie: "+document.cookie);
     const formData = new FormData();
     formData.append('postDto', new Blob([JSON.stringify(postDto)], { type: 'application/json' }));
 

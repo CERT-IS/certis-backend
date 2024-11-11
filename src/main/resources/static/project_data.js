@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById('report-button').addEventListener('click', function() {
     Goreport();
   });
+
   document.getElementById('delete-button').addEventListener('click', function() {
     deletePost(id);
   });
@@ -35,13 +36,23 @@ function loadPostDetail(id) {
                 document.getElementById('post-date').innerText = new Date(post.registeredAt).toLocaleString();
                 document.getElementById('post-content').innerText = post.content;
 
-                const imageContainer = document.getElementById('post-images'); // html Element 생성해야함
-                post.postImageUrlList.forEach(imageUrl => {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = imageUrl;
-                    imgElement.alt = 'image';
-                    imageContainer.appendChild(imgElement);
-                });
+                // 첨부파일 링크 추가
+                const postFileElement = document.getElementById('post-file');
+                postFileElement.innerHTML = '';  // 기존 내용을 지우기
+                if (post.postImageUrlList && post.postImageUrlList.length > 0) {
+                    post.postImageUrlList.forEach((fileUrl, index) => {
+                        const link = document.createElement('a');
+                        link.href = fileUrl;
+                        link.innerText = `첨부파일 ${index + 1}`;
+                        link.setAttribute('download', ''); // download 속성 추가
+                        postFileElement.appendChild(link);
+
+                        // 줄바꿈을 위해 <br> 추가
+                        postFileElement.appendChild(document.createElement('br'));
+                    });
+                } else {
+                    postFileElement.innerText = '첨부파일 없음';
+                }
             } else {
                 alert(data.message);
             }

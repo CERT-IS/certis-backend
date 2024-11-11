@@ -14,7 +14,7 @@ function getCookie(name) {
 function addPost() {
   const title = document.getElementById('title').value;
   const content = document.getElementById('content').value;
-  const filesInput = document.getElementById('files');
+  const filesInput = document.getElementById('file-upload');
   const files = filesInput ? filesInput.files : [];
   const accesstoken = getCookie('refresh-token');
   const boardType = 'noti';
@@ -26,14 +26,13 @@ function addPost() {
     };
 
     const formData = new FormData();
-    formData.append('postDto', new Blob([JSON.stringify(postDto)], { type: 'application/json' }));
-
+    formData.append('postDto', new Blob([JSON.stringify(postDto)], {type: 'application/json'}));
     if (files.length > 0) {
       Array.from(files).forEach(file => {
         formData.append('files', file);
       });
     }
-
+    
     fetch(`board/${boardType}/write`, {
       method: 'POST',
       headers: {
