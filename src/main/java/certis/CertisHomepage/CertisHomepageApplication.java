@@ -20,11 +20,11 @@ public class CertisHomepageApplication {
 
 	@GetMapping("/login")
 	public String login(){
-		return "login.html";
+		return "login";
 	}
 
 	@GetMapping("/register")
 	public String register(){
-		return "register.html";
+		return "register";
 	}
 }

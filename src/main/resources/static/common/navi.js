@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-  fetch('/navi.html')
+  fetch('common/navi.html')
       .then(response => response.text())
       .then(data => {
           document.getElementById('header-placeholder').innerHTML = data;

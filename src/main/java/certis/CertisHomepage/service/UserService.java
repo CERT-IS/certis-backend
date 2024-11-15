@@ -53,7 +53,7 @@ public class UserService {
                 .modifiedAt(LocalDateTime.now())
                 .exp(0L)
                 .email(userRegisterRequest.getEmail())
-                .roleType(RoleType.USER)
+                .roleType(RoleType.ROLE_USER)
                 .build();
 
         userRepository.save(user);

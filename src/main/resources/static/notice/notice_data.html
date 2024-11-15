@@ -4,28 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항</title>
-  <link rel="stylesheet" href="/css/project_data.css">
+  <link rel="stylesheet" href="/css/notice_data.css">
   <link rel="icon" href="/img/certis배너무당벌레.png" type="image/png">
 </head>
 <body>
 <div id="header-placeholder"></div>
-<h1>프로젝트</h1>
-<div class="detail-container">
+  <h1>공지사항</h1>
+  <div class="detail-container">
   <div class="notice-title" id="post-title"></div>
-  <table class="notice-table">
-    <tr>
-      <th>작성자</th>
-      <td id="post-author"></td>
-      <th>작성일</th>
-      <td id="post-date"></td>
-    </tr>
-    <tr>
-      <th>조회수</th>
-      <td id="post-views"></td>
-      <th>첨부파일</th>
-      <td id="post-file"></td>
-    </tr>
-  </table>
+  <div class="notice-post_date" id="post-date"></div>
   <div class="notice-content" id="post-content"></div>
   <div class="button-container">
     <button id="delete-button">삭제</button>
@@ -33,10 +20,10 @@
     <button id="report-button">목록</button>
   </div>
 </div>
-<script src="/navi.js"></script>
-<script src="/project_data.js"></script>
+<script src="/common/navi.js"></script>
+<script src="/notice/notice_data.jsdata.js"></script>
 </body>
 <footer id="footer">
 </footer>
-<script src="/footer.js"></script>
+<script src="/common/footer.js"></script>
 </html>

@@ -52,7 +52,7 @@ public class UserEntity {
     private RefreshTokenEntity refreshToken;
 
 
-   @Column(columnDefinition = "ENUM('ADMIN', 'USER')")
+   @Column(columnDefinition = "ENUM('ROLE_ADMIN', 'ROLE_USER')")
    @Enumerated(EnumType.STRING) //enum에있는 이름을 매핑할때 쓰인다.
    private RoleType roleType;
 
