@@ -9,15 +9,24 @@
 </head>
 <body>
 <div id="header-placeholder"></div>
-  <h1>공지사항</h1>
-  <div class="detail-container">
-  <div class="notice-title" id="post-title"></div>
-  <div class="notice-post_date" id="post-date"></div>
-  <div class="notice-content" id="post-content"></div>
-  <div class="button-container">
-    <button id="delete-button">삭제</button>
-<!--    <button>수정</button>-->
-    <button id="report-button">목록</button>
+<div class="content-flexbox">
+  <div class="content-container">
+    <div class="notice-header">공지사항</div>
+    <h1 class="notice-title" id="post-title">제목</h1>
+    <img class="notice-post-date-image" src="img/calendar.png">
+    <span class="notice-post-date" id="post-date">20XX-XX-XX</span>
+    <span class="notice-post-views">조회수 </span>
+    <span class="notice-post-views"id="post-views">XX</span>
+    <hr>
+    <div class="notice-content">
+      <div id="post-content">내용 내용 가나다라마바사</div>
+      <div id="post-images"></div>
+    </div>
+    <div class="button-container">
+      <button class="act-button" id="delete-button">삭제</button>
+      <!--    <button>수정</button>-->
+      <button class="act-button" id="report-button">목록</button>
+    </div>
   </div>
 </div>
 <script src="/navi.js"></script>
