@@ -1,5 +1,5 @@
 package certis.CertisHomepage.domain;
 
 public enum RoleType {
-    ADMIN, USER
+    ROLE_ADMIN, ROLE_USER
 }
