@@ -36,7 +36,7 @@ public class NotiInterceptor implements HandlerInterceptor {
             var loginid = tokenBusiness.validationAccessToken(accessToken);
             UserEntity user = userRepository.findByIdAndStatus(loginid, UserStatus.REGISTERED);
 
-            if(RoleType.ADMIN.equals(user.getRoleType()) ){
+            if(RoleType.ROLE_ADMIN.equals(user.getRoleType()) ){
                 //관리자면 접근 허용
                 return true;
             }else {
