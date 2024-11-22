@@ -11,36 +11,54 @@ body {
   margin: 20px;
 }
 
+.notice-container {
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .notice-title {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: rgb(102, 102, 102);
+  margin: 0 0 20px 0;
+}
+
+.data-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 양쪽 끝 배치 */
+  width: 100%; /* 부모 요소에 맞게 확장 */
+  margin-top: 10px; /* 선택 사항 */
+}
+
+.notice-post_date {
   font-size: 1.3em;
   font-weight: bold;
-  margin-bottom: 20px;
+  color: rgb(155, 154, 154);
 }
-.notice-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-.notice-table th, .notice-table td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: left;
-}
-.notice-table th {
-  background-color: #f9f9f9;
+
+.notice-file {
+  font-size: 1.3em;
   font-weight: bold;
+  color: rgb(155, 154, 154);
 }
+
 .notice-content {
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: #f5f5f5; /* 배경색 추가 */
-  min-height: 200px; /* 최소 높이 설정 */
+  border-top: 1px solid #969696;
+  padding: 30px;
+  width: 100%;
+  min-height: 500px;
+  font-size: 20px;
 }
+
 .button-container {
-  text-align: right; /* 오른쪽 정렬 */
+  text-align: right;
   margin-top: 10px;
-  
 }
+
 .button-container button {
   background-color: #ff4d4d;
   color: white;
